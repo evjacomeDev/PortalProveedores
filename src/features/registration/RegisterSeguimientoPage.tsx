@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import { db } from "../../mock/db";
 
 export function RegisterSeguimientoPage() {
   const { id = "demo" } = useParams();
