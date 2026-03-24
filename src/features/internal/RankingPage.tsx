@@ -6,6 +6,13 @@ function latestScore(supplierId: string) {
   return list[0];
 }
 
+function getScoreBadge(score: number | undefined) {
+  if (score === undefined || score < 0) return <span className="text-[#999]">—</span>;
+  if (score >= 85) return <span className="wf-chip wf-chip-active px-2 py-1">{score.toFixed(1)}</span>;
+  if (score >= 70) return <span className="wf-chip wf-chip-validating px-2 py-1">{score.toFixed(1)}</span>;
+  return <span className="wf-chip wf-chip-blocked px-2 py-1">{score.toFixed(1)}</span>;
+}
+
 export function RankingPage() {
   const rows = db.suppliers
     .map((s) => ({ s, ev: latestScore(s.id) }))
@@ -39,11 +46,11 @@ export function RankingPage() {
                   <td>{i + 1}</td>
                   <td className="font-medium">{s.name}</td>
                   <td>{s.type}</td>
-                  <td>{ev ? ev.finalScore.toFixed(1) : "—"}</td>
+                  <td>{getScoreBadge(ev?.finalScore)}</td>
                   <td>{ev?.category ?? "—"}</td>
                   <td>
                     <Link className="wf-action-btn no-underline" to={`/app/proveedores/${s.id}`}>
-                      Ficha
+                      Ver Ficha
                     </Link>
                   </td>
                 </tr>

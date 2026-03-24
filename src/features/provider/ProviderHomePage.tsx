@@ -22,9 +22,31 @@ export function ProviderHomePage() {
         <p className="mb-6 max-w-3xl text-[15px] leading-relaxed" style={{ color: "var(--wf-text-muted)" }}>
           Centro de tareas: pendientes documentales, evaluación, planes de mejora y enlaces operativos (demo navegable).
         </p>
-        <Link className="wf-btn wf-btn-primary inline-flex h-auto items-center justify-center px-8 py-3 text-[15px] no-underline" to="/proveedor/documentos">
-          Ir a mis documentos
-        </Link>
+
+        {pending > 0 || activePlans > 0 ? (
+          <div className="wf-card mb-6 border-l-4 border-[#e63946] bg-[#fff5f5]">
+            <h2 className="mb-2 font-bold text-[#e63946]">¡Atención requerida!</h2>
+            <p className="mb-4 text-sm" style={{ color: "var(--wf-text-soft)" }}>
+              Tienes {pending} documentos pendientes o rechazados y {activePlans} planes de mejora activos que requieren tu acción inmediata para mantener tu cumplimiento.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {pending > 0 && (
+                <Link className="wf-btn wf-btn-primary inline-flex items-center justify-center no-underline" to="/proveedor/documentos">
+                  Subir documentos pendientes
+                </Link>
+              )}
+              {activePlans > 0 && (
+                <Link className="wf-btn wf-btn-secondary inline-flex items-center justify-center no-underline border-[#e63946] text-[#e63946]" to="/proveedor/planes">
+                  Ver planes de mejora
+                </Link>
+              )}
+            </div>
+          </div>
+        ) : (
+          <Link className="wf-btn wf-btn-primary inline-flex h-auto items-center justify-center px-8 py-3 text-[15px] no-underline" to="/proveedor/documentos">
+            Ir a mis documentos
+          </Link>
+        )}
       </section>
 
       <div className="wf-kpi-row">
@@ -79,10 +101,16 @@ export function ProviderHomePage() {
         </div>
         <div className="wf-card">
           <h2 className="mb-3 text-sm font-bold">Próximos vencimientos (demo)</h2>
-          <ul className="space-y-2 text-sm" style={{ color: "var(--wf-text-soft)" }}>
+          <ul className="space-y-4 text-sm" style={{ color: "var(--wf-text-soft)" }}>
             {myPeriods.slice(0, 5).map((p) => (
-              <li key={p.id}>
-                {p.label} — vence {p.dueDate} ({p.status})
+              <li key={p.id} className="flex items-center justify-between border-b pb-2 last:border-0 last:pb-0 border-[#eaeaea]">
+                <div>
+                  <span className="font-semibold" style={{ color: "var(--wf-text)" }}>{p.label}</span> — vence {p.dueDate}
+                  <div className="mt-1"><span className="wf-chip wf-chip-validating text-xs">{p.status}</span></div>
+                </div>
+                <Link className="wf-btn wf-btn-secondary text-xs px-3 py-1 no-underline shrink-0" to="/proveedor/documentos">
+                  Cargar
+                </Link>
               </li>
             ))}
           </ul>

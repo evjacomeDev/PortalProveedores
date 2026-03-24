@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 import { db } from "../../mock/db";
 
 const docChip: Record<string, string> = {
@@ -49,6 +50,7 @@ export function ExpedientePage() {
                       <th>Estatus</th>
                       <th>Archivo</th>
                       <th>Validador</th>
+                      <th>Acción rápida</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -61,6 +63,28 @@ export function ExpedientePage() {
                         <td>{d.fileName ?? "—"}</td>
                         <td className="text-xs" style={{ color: "var(--wf-text-muted)" }}>
                           {d.validatorComment ?? "—"}
+                        </td>
+                        <td>
+                          {d.status === "En revision" ? (
+                            <div className="flex flex-wrap gap-2">
+                              <button
+                                type="button"
+                                className="wf-btn wf-btn-primary text-xs py-1 px-3"
+                                onClick={() => toast.success(`Documento ${d.documentType} aprobado (mock)`)}
+                              >
+                                Aprobar
+                              </button>
+                              <button
+                                type="button"
+                                className="wf-btn wf-btn-secondary text-xs py-1 px-3 border-[#e63946] text-[#e63946]"
+                                onClick={() => toast.success(`Documento ${d.documentType} rechazado (mock)`)}
+                              >
+                                Rechazar
+                              </button>
+                            </div>
+                          ) : (
+                            <span className="text-xs text-[#999]">—</span>
+                          )}
                         </td>
                       </tr>
                     ))}
