@@ -25,13 +25,13 @@ function showInternalNav(role: Role | undefined, key: NavKey): boolean {
     case "evaluacion":
     case "ranking":
     case "planes":
-      return role !== "TI";
+      return role !== "CS";
     case "reportes":
     case "config":
-      return role === "AP" || role === "AC" || role === "CO";
+      return role === "AG" || role === "CO" || role === "FI";
     case "usuarios":
     case "biblioteca":
-      return role === "AP" || role === "AC";
+      return role === "AG";
     default:
       return false;
   }

@@ -6,14 +6,15 @@ export function getBusinessRole(role: Role): BusinessRole {
     case "PA":
     case "PU":
       return "PROVEEDOR";
-    case "TI":
+    case "CS":
       return "CONSULTA";
-    case "VR":
+    case "CA":
+    case "ID":
+    case "FI":
       return "EVALUADOR";
     case "CO":
       return "ADMIN_AREA";
-    case "AP":
-    case "AC":
+    case "AG":
       return "ADMIN_GLOBAL";
     default:
       return "CONSULTA";

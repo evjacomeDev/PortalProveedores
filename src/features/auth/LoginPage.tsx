@@ -3,15 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import type { Role } from "../../mock/types";
 import { useAuthStore } from "./store";
 
-const internalRoles: Role[] = ["AP", "AC", "CO", "VR", "TI"];
+const internalRoles: Role[] = ["AG", "CO", "CA", "ID", "FI", "CS"];
 const providerRoles: Role[] = ["PA", "PU"];
 
 type Audience = "proveedor" | "empresa";
 
 export function LoginPage({ audience }: { audience: Audience }) {
   const roles = audience === "proveedor" ? providerRoles : internalRoles;
-  const defaultRole = audience === "proveedor" ? "PA" : "AP";
-  const defaultEmail = audience === "proveedor" ? "pa@demo.com" : "ap@demo.com";
+  const defaultRole = audience === "proveedor" ? "PA" : "AG";
+  const defaultEmail = audience === "proveedor" ? "pa@demo.com" : "ag@demo.com";
 
   const [role, setRole] = useState<string>(defaultRole);
   const [email, setEmail] = useState(defaultEmail);

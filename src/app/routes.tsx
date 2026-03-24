@@ -97,7 +97,7 @@ export const router = createBrowserRouter([
           { path: "catalogos", element: <Navigate to="/app/config/documentos" replace /> },
           { path: "usuarios", element: <Navigate to="/app/admin/usuarios" replace /> },
           {
-            element: <RequireRole roles={["VR", "AP", "AC", "CO"]} />,
+            element: <RequireRole roles={["CA", "ID", "FI", "AG", "CO"]} />,
             children: [
               { path: "validacion", element: <ValidationPage /> },
               { path: "evaluacion", element: <EvaluationConfigPage /> },
@@ -108,14 +108,14 @@ export const router = createBrowserRouter([
             ],
           },
           {
-            element: <RequireRole roles={["AP", "AC", "CO"]} />,
+            element: <RequireRole roles={["AG", "CO", "FI"]} />,
             children: [
               { path: "reportes", element: <ReportsPage /> },
               { path: "config/documentos", element: <CatalogsPage /> },
             ],
           },
           {
-            element: <RequireRole roles={["AP", "AC"]} />,
+            element: <RequireRole roles={["AG"]} />,
             children: [
               { path: "admin/usuarios", element: <UsersPage /> },
               { path: "admin/biblioteca", element: <AdminBibliotecaPage /> },
