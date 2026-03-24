@@ -5,16 +5,13 @@ import { db } from "../../mock/db";
 const primary = [
   ["Inicio", "/proveedor/home", true],
   ["Mi expediente", "/proveedor/expediente", false],
+  ["Mis contratos", "/proveedor/operacion/contratos", false],
+  ["Periodos REPSE", "/proveedor/operacion/periodos", false],
   ["Mis documentos", "/proveedor/documentos", false],
   ["Mi evaluación", "/proveedor/evaluacion", false],
+  ["Facturación", "/proveedor/facturacion", false],
   ["Planes de mejora", "/proveedor/planes", false],
   ["Biblioteca", "/proveedor/biblioteca", false],
-  ["Facturación", "/proveedor/facturacion", false],
-] as const;
-
-const operacion = [
-  ["Contratos", "/proveedor/operacion/contratos", false],
-  ["Periodos", "/proveedor/operacion/periodos", false],
 ] as const;
 
 export function ProviderShell() {
@@ -47,14 +44,6 @@ export function ProviderShell() {
       <nav className="wf-menu-bar shrink-0 flex flex-wrap gap-1 px-2 py-2" aria-label="Navegación proveedor">
         {primary.map(([label, to, end]) => (
           <NavLink key={to} to={to} className={({ isActive }) => `wf-menu-item ${isActive ? "wf-menu-item-active" : ""}`} end={end}>
-            {label}
-          </NavLink>
-        ))}
-        <span className="self-center px-2 text-xs uppercase" style={{ color: "var(--wf-text-muted)" }}>
-          Operación
-        </span>
-        {operacion.map(([label, to, end]) => (
-          <NavLink key={to} to={to} className={({ isActive }) => `wf-menu-item text-sm ${isActive ? "wf-menu-item-active" : ""}`} end={end}>
             {label}
           </NavLink>
         ))}
