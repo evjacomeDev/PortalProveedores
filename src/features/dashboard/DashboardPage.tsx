@@ -27,8 +27,14 @@ export function DashboardPage() {
           <span className="wf-filter-label">Proveedor</span>
           <input className="wf-input" placeholder="Buscar…" readOnly />
         </div>
-        <button type="button" className="wf-btn wf-btn-primary ml-auto">
+        <button type="button" className="wf-btn wf-btn-primary ml-auto flex items-center gap-2">
           Aplicar filtros
+        </button>
+        <button type="button" className="wf-btn wf-btn-outline flex items-center gap-2 cursor-pointer" title="Descargar como Excel">
+          Exportar Excel
+        </button>
+        <button type="button" className="wf-btn wf-btn-outline flex items-center gap-2 cursor-pointer" title="Base de datos para Power BI">
+          CSV Power BI
         </button>
       </div>
 

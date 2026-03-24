@@ -1,4 +1,4 @@
-export type Role = "AP" | "AC" | "CO" | "VR" | "TI" | "PA" | "PU";
+export type Role = "AG" | "CO" | "CA" | "ID" | "FI" | "CS" | "PA" | "PU";
 
 /** Rol de negocio demo (menú y permisos de alto nivel). */
 export type BusinessRole = "ADMIN_GLOBAL" | "ADMIN_AREA" | "EVALUADOR" | "CONSULTA" | "PROVEEDOR";
@@ -51,7 +51,7 @@ export type RepseDocument = {
   contractId: string;
   supplierId: string;
   documentType: string;
-  section: "Alta" | "Vigencia" | "Mensual" | "Cuatrimestral";
+  section: "Alta" | "Vigencia" | "Mensual" | "Cuatrimestral" | "Documentos de la Empresa" | "Documentos Técnicos";
   status: DocumentStatus;
   fileName?: string;
   validatorComment?: string;
@@ -68,7 +68,7 @@ export type EvaluationVersion = {
   createdAt: string;
   scores: Record<string, number>;
   finalScore: number;
-  category: "APTO" | "EN DESARROLLO" | "NO APTO";
+  category: "APTO" | "EN DESARROLLO" | "NO APTO" | "CONFIABLE" | "REGULAR" | "RIESGO ALTO" | "EXCELENTE";
 };
 
 export type AuditEvent = {
