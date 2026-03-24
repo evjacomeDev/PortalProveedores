@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Documentos REPSE - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #ffffff;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            height: 72px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .header-logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #999;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: absolute;
+            left: 0;
+            top: 72px;
+            width: 240px;
+            height: calc(100% - 72px);
+            background: #d8d8d8;
+            padding: 24px 16px;
+        }
+        
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .sidebar-item {
+            padding: 12px 16px;
+            background: #c8c8c8;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .sidebar-item.active {
+            background: #b8b8b8;
+            font-weight: bold;
+        }
+        
+        /* Main content */
+        .main-content {
+            margin-left: 240px;
+            margin-top: 72px;
+            padding: 24px;
+            height: calc(100% - 72px);
+            overflow-y: auto;
+        }
+        
+        /* Page Title */
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        /* Filters and Actions Bar */
+        .filters-actions-bar {
+            background: #f0f0f0;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .filters-group {
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .filter-label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .filter-input {
+            width: 200px;
+            height: 36px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .filter-button {
+            height: 36px;
+            padding: 0 24px;
+            background: #999;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        .btn-new-document {
+            height: 40px;
+            padding: 0 24px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        
+        /* Table Container */
+        .table-container {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            color: #555;
+            font-weight: bold;
+            border-bottom: 2px solid #d0d0d0;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 12px;
+            font-size: 12px;
+            color: #333;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        tr:hover {
+            background: #f8f8f8;
+        }
+        
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border: 2px solid #999;
+            border-radius: 3px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            font-size: 14px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-icon {
+            width: 24px;
+            height: 24px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal {
+            width: 600px;
+            max-height: 80vh;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background: #f0f0f0;
+            padding: 20px 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .modal-body {
+            padding: 24px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .form-input {
+            height: 40px;
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            background: #fff;
+        }
+        
+        .form-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 8px;
+        }
+        
+        .form-checkbox {
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border: 2px solid #999;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .form-checkbox-label {
+            font-size: 13px;
+            color: #555;
+            cursor: pointer;
+        }
+        
+        .modal-footer {
+            background: #f8f8f8;
+            padding: 16px 24px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+        
+        .btn-cancel {
+            padding: 10px 24px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .btn-save {
+            padding: 10px 24px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">LOGO PROGELA</div>
+            <div class="header-title">Portal de Proveedores REPSE</div>
+            <div class="header-user">
+                <span>Usuario: Administrador</span>
+                <div class="avatar"></div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <div class="sidebar-item">Dashboard</div>
+                <div class="sidebar-item">Proveedores</div>
+                <div class="sidebar-item">Contratos REPSE</div>
+                <div class="sidebar-item">Expedientes</div>
+                <div class="sidebar-item">Periodos</div>
+                <div class="sidebar-item">Validación</div>
+                <div class="sidebar-item active">Configuración</div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Page Title -->
+            <div class="page-title">Configuración de documentos y periodicidad REPSE</div>
+            
+            <!-- Filters and Actions Bar -->
+            <div class="filters-actions-bar">
+                <div class="filters-group">
+                    <div class="filter-group">
+                        <div class="filter-label">Etapa</div>
+                        <div class="filter-input">Todos</div>
+                    </div>
+                    <div class="filter-group">
+                        <div class="filter-label">Tipo de servicio</div>
+                        <div class="filter-input">Todos</div>
+                    </div>
+                    <button class="filter-button">Aplicar filtros</button>
+                </div>
+                <button class="btn-new-document">+ Nuevo documento REPSE</button>
+            </div>
+            
+            <!-- Table -->
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID documento</th>
+                                <th>Nombre documento</th>
+                                <th>Etapa</th>
+                                <th>Periodicidad</th>
+                                <th>Días de plazo</th>
+                                <th>Obligatorio</th>
+                                <th>Aplica a</th>
+                                <th>Formato</th>
+                                <th>Visible proveedor</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PAGO_IMSS</td>
+                                <td>Pago IMSS</td>
+                                <td>Mensual</td>
+                                <td>Mensual</td>
+                                <td>30</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>Todos</td>
+                                <td>PDF</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <div class="action-icon">✏</div>
+                                        <div class="action-icon">🗑</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PAGO_INFONAVIT</td>
+                                <td>Pago Infonavit</td>
+                                <td>Mensual</td>
+                                <td>Mensual</td>
+                                <td>30</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>Todos</td>
+                                <td>PDF</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <div class="action-icon">✏</div>
+                                        <div class="action-icon">🗑</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>DECL_ISR</td>
+                                <td>Declaración ISR</td>
+                                <td>Mensual</td>
+                                <td>Mensual</td>
+                                <td>15</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>Todos</td>
+                                <td>PDF/XML</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <div class="action-icon">✏</div>
+                                        <div class="action-icon">🗑</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>OPINION_SAT</td>
+                                <td>Opinión de cumplimiento SAT</td>
+                                <td>Vigencia</td>
+                                <td>Cuatrimestral</td>
+                                <td>120</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>Todos</td>
+                                <td>PDF</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <div class="action-icon">✏</div>
+                                        <div class="action-icon">🗑</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>LISTADO_TRAB</td>
+                                <td>Listado de trabajadores</td>
+                                <td>Mensual</td>
+                                <td>Mensual</td>
+                                <td>30</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>Mano de obra</td>
+                                <td>Excel/PDF</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <div class="action-icon">✏</div>
+                                        <div class="action-icon">🗑</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CFDI_NOMINA</td>
+                                <td>CFDI de nómina</td>
+                                <td>Mensual</td>
+                                <td>Mensual</td>
+                                <td>30</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>Todos</td>
+                                <td>XML/PDF</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <div class="action-icon">✏</div>
+                                        <div class="action-icon">🗑</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CONST_SIT_FISC</td>
+                                <td>Constancia de situación fiscal</td>
+                                <td>Alta</td>
+                                <td>Una vez</td>
+                                <td>0</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>Todos</td>
+                                <td>PDF</td>
+                                <td><span class="checkbox"></span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <div class="action-icon">✏</div>
+                                        <div class="action-icon">🗑</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CEDULA_REPSE</td>
+                                <td>Cédula REPSE vigente</td>
+                                <td>Vigencia</td>
+                                <td>Cuatrimestral</td>
+                                <td>120</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>Todos</td>
+                                <td>PDF</td>
+                                <td><span class="checkbox checked"></span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <div class="action-icon">✏</div>
+                                        <div class="action-icon">🗑</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal (New/Edit Document) -->
+        <div class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <div class="modal-title">Nuevo documento REPSE</div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label class="form-label">Nombre del documento</label>
+                            <input type="text" class="form-input" placeholder="Ej: Pago IMSS">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">ID documento (código)</label>
+                            <input type="text" class="form-input" placeholder="Ej: PAGO_IMSS">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Etapa</label>
+                            <select class="form-input">
+                                <option>Seleccionar...</option>
+                                <option>Alta</option>
+                                <option>Vigencia</option>
+                                <option>Mensual</option>
+                                <option>Cuatrimestral</option>
+                                <option>Por factura</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Periodicidad</label>
+                            <select class="form-input">
+                                <option>Seleccionar...</option>
+                                <option>Una vez</option>
+                                <option>Mensual</option>
+                                <option>Cuatrimestral</option>
+                                <option>Anual</option>
+                                <option>Por evento</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Días de plazo</label>
+                            <input type="number" class="form-input" placeholder="Ej: 30">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Aplica a</label>
+                            <select class="form-input">
+                                <option>Todos</option>
+                                <option>Mano de obra</option>
+                                <option>Construcción</option>
+                                <option>Servicios especializados</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Formato permitido</label>
+                            <select class="form-input">
+                                <option>PDF</option>
+                                <option>XML</option>
+                                <option>PDF/XML</option>
+                                <option>Excel</option>
+                                <option>Excel/PDF</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Obligatorio</label>
+                            <div class="form-checkbox-group">
+                                <div class="form-checkbox"></div>
+                                <label class="form-checkbox-label">Es obligatorio</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Visible para proveedor</label>
+                            <div class="form-checkbox-group">
+                                <div class="form-checkbox"></div>
+                                <label class="form-checkbox-label">El proveedor puede verlo</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">Descripción / Instrucciones (opcional)</label>
+                            <textarea class="form-input" style="height: 80px; padding: 10px; resize: vertical;" placeholder="Instrucciones adicionales para la carga del documento..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel">Cancelar</button>
+                    <button class="btn-save">Guardar documento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

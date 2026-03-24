@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Ejecutivo REPSE - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #ffffff;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            height: 72px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .header-logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #999;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: absolute;
+            left: 0;
+            top: 72px;
+            width: 240px;
+            height: calc(100% - 72px);
+            background: #d8d8d8;
+            padding: 24px 16px;
+        }
+        
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .sidebar-item {
+            padding: 12px 16px;
+            background: #c8c8c8;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .sidebar-item:first-child {
+            background: #b8b8b8;
+            font-weight: bold;
+        }
+        
+        /* Main content */
+        .main-content {
+            margin-left: 240px;
+            margin-top: 72px;
+            padding: 24px;
+            height: calc(100% - 72px);
+            overflow-y: auto;
+        }
+        
+        /* Filters */
+        .filters {
+            height: 72px;
+            background: #f0f0f0;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .filter-label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .filter-input {
+            width: 180px;
+            height: 36px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .filter-button {
+            height: 36px;
+            padding: 0 24px;
+            background: #999;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            margin-left: auto;
+            margin-top: 18px;
+        }
+        
+        /* KPI Cards */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .kpi-card {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px;
+            position: relative;
+            min-height: 120px;
+        }
+        
+        .kpi-title {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .kpi-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-top: 8px;
+        }
+        
+        .kpi-indicator {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .indicator-green { background: #4CAF50; }
+        .indicator-yellow { background: #FFC107; }
+        .indicator-red { background: #F44336; }
+        
+        /* Charts Row */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .chart-card {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 24px;
+            min-height: 300px;
+        }
+        
+        .chart-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        /* Donut Chart */
+        .donut-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .donut-chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #4CAF50 0deg 180deg,
+                #FFC107 180deg 270deg,
+                #F44336 270deg 315deg,
+                #999 315deg 360deg
+            );
+            position: relative;
+        }
+        
+        .donut-chart::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+        }
+        
+        /* Bar Chart */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 40px;
+            height: 200px;
+            padding: 20px 0;
+        }
+        
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .bar-stack {
+            width: 60px;
+            display: flex;
+            flex-direction: column-reverse;
+            border: 1px solid #d0d0d0;
+        }
+        
+        .bar-segment {
+            width: 100%;
+        }
+        
+        .bar-label {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+        }
+        
+        /* Table */
+        .table-container {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 24px;
+        }
+        
+        .table-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+            color: #555;
+            font-weight: bold;
+            border-bottom: 2px solid #d0d0d0;
+        }
+        
+        td {
+            padding: 12px;
+            font-size: 13px;
+            color: #333;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        .action-button {
+            padding: 6px 12px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">LOGO PROGELA</div>
+            <div class="header-title">Portal de Proveedores REPSE</div>
+            <div class="header-user">
+                <span>Usuario: Fiscal/Compliance</span>
+                <div class="avatar"></div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <div class="sidebar-item">Dashboard</div>
+                <div class="sidebar-item">Proveedores</div>
+                <div class="sidebar-item">Contratos REPSE</div>
+                <div class="sidebar-item">Expedientes</div>
+                <div class="sidebar-item">Periodos</div>
+                <div class="sidebar-item">Configuración</div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filter-group">
+                    <div class="filter-label">Sociedad</div>
+                    <div class="filter-input">Seleccionar...</div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label">Mes / periodo</div>
+                    <div class="filter-input">Enero 2025</div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label">Tipo de periodo</div>
+                    <div class="filter-input">Mensual / Cuatrimestral</div>
+                </div>
+                <button class="filter-button">Aplicar filtros</button>
+            </div>
+            
+            <!-- KPI Cards -->
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-indicator indicator-green"></div>
+                    <div class="kpi-title">Proveedores REPSE activos</div>
+                    <div class="kpi-value">125</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-indicator indicator-yellow"></div>
+                    <div class="kpi-title">Proveedores en riesgo</div>
+                    <div class="kpi-value">8</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-indicator indicator-red"></div>
+                    <div class="kpi-title">Proveedores bloqueados</div>
+                    <div class="kpi-value">12</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-indicator indicator-green"></div>
+                    <div class="kpi-title">% periodos mensuales aprobados</div>
+                    <div class="kpi-value">87%</div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="charts-row">
+                <!-- Donut Chart -->
+                <div class="chart-card">
+                    <div class="chart-title">Distribución de proveedores por estado</div>
+                    <div class="donut-container">
+                        <div class="donut-chart"></div>
+                        <div class="legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #4CAF50;"></div>
+                                <span>Activo</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #FFC107;"></div>
+                                <span>En riesgo</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #F44336;"></div>
+                                <span>Bloqueado</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #999;"></div>
+                                <span>En validación</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bar Chart -->
+                <div class="chart-card">
+                    <div class="chart-title">Periodos mensuales por estado (mes seleccionado)</div>
+                    <div class="bar-chart">
+                        <div class="bar-group">
+                            <div class="bar-stack">
+                                <div class="bar-segment" style="height: 80px; background: #4CAF50;"></div>
+                                <div class="bar-segment" style="height: 30px; background: #FFC107;"></div>
+                                <div class="bar-segment" style="height: 20px; background: #F44336;"></div>
+                            </div>
+                            <div class="bar-label">Sociedad A</div>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar-stack">
+                                <div class="bar-segment" style="height: 100px; background: #4CAF50;"></div>
+                                <div class="bar-segment" style="height: 20px; background: #FFC107;"></div>
+                                <div class="bar-segment" style="height: 10px; background: #F44336;"></div>
+                            </div>
+                            <div class="bar-label">Sociedad B</div>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar-stack">
+                                <div class="bar-segment" style="height: 60px; background: #4CAF50;"></div>
+                                <div class="bar-segment" style="height: 40px; background: #FFC107;"></div>
+                                <div class="bar-segment" style="height: 30px; background: #F44336;"></div>
+                            </div>
+                            <div class="bar-label">Sociedad C</div>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar-stack">
+                                <div class="bar-segment" style="height: 90px; background: #4CAF50;"></div>
+                                <div class="bar-segment" style="height: 25px; background: #FFC107;"></div>
+                                <div class="bar-segment" style="height: 15px; background: #F44336;"></div>
+                            </div>
+                            <div class="bar-label">Sociedad D</div>
+                        </div>
+                    </div>
+                    <div class="legend" style="margin-top: 20px;">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #4CAF50;"></div>
+                            <span>Aprobado</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #FFC107;"></div>
+                            <span>En validación</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #F44336;"></div>
+                            <span>Vencido</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Table -->
+            <div class="table-container">
+                <div class="table-title">Top proveedores por riesgo / incidencias</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Proveedor</th>
+                            <th>RFC</th>
+                            <th># contratos REPSE</th>
+                            <th>% periodos en verde</th>
+                            <th># periodos vencidos</th>
+                            <th>Estado REPSE</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Proveedor Ejemplo 1</td>
+                            <td>AAA010101AAA</td>
+                            <td>5</td>
+                            <td>65%</td>
+                            <td>4</td>
+                            <td>En riesgo</td>
+                            <td><button class="action-button">Ver detalle</button></td>
+                        </tr>
+                        <tr>
+                            <td>Servicios Integrales SA</td>
+                            <td>BBB020202BBB</td>
+                            <td>8</td>
+                            <td>45%</td>
+                            <td>7</td>
+                            <td>Bloqueado</td>
+                            <td><button class="action-button">Ver detalle</button></td>
+                        </tr>
+                        <tr>
+                            <td>Outsourcing Global MX</td>
+                            <td>CCC030303CCC</td>
+                            <td>3</td>
+                            <td>70%</td>
+                            <td>3</td>
+                            <td>En validación</td>
+                            <td><button class="action-button">Ver detalle</button></td>
+                        </tr>
+                        <tr>
+                            <td>Recursos Humanos Plus</td>
+                            <td>DDD040404DDD</td>
+                            <td>6</td>
+                            <td>55%</td>
+                            <td>5</td>
+                            <td>En riesgo</td>
+                            <td><button class="action-button">Ver detalle</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

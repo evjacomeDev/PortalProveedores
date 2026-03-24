@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carga Documentos Periodo Proveedor - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #ffffff;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            height: 72px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .header-logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #999;
+        }
+        
+        .logout-link {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+        }
+        
+        /* Menu Bar */
+        .menu-bar {
+            height: 56px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #d0d0d0;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 8px;
+        }
+        
+        .menu-item {
+            padding: 12px 24px;
+            font-size: 14px;
+            color: #555;
+            border-radius: 4px;
+        }
+        
+        .menu-item.active {
+            background: #d8d8d8;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 24px;
+            height: calc(900px - 72px - 56px);
+            overflow-y: auto;
+        }
+        
+        /* Page Title */
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        /* Context Header */
+        .context-header {
+            background: #f8f8f8;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+        }
+        
+        .context-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .context-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .context-label {
+            font-size: 11px;
+            color: #777;
+            text-transform: uppercase;
+        }
+        
+        .context-value {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .status-chip {
+            padding: 6px 14px;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 4px;
+        }
+        
+        .status-open {
+            background: #BBDEFB;
+            color: #1565C0;
+        }
+        
+        .status-review {
+            background: #FFF9C4;
+            color: #F57F17;
+        }
+        
+        .status-approved {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .status-expired {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+        
+        /* Info Message */
+        .info-message {
+            background: #E3F2FD;
+            border: 1px solid #90CAF9;
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .info-icon {
+            width: 24px;
+            height: 24px;
+            background: #2196F3;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .info-text {
+            font-size: 14px;
+            color: #1565C0;
+            line-height: 1.5;
+        }
+        
+        /* Layout: Table + Instructions */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+        }
+        
+        /* Table */
+        .table-container {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            color: #555;
+            font-weight: bold;
+            border-bottom: 2px solid #d0d0d0;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 12px;
+            font-size: 13px;
+            color: #333;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        tr:hover {
+            background: #f8f8f8;
+        }
+        
+        /* Status Indicators */
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .indicator-pending {
+            background: #2196F3;
+        }
+        
+        .indicator-review {
+            background: #FFC107;
+        }
+        
+        .indicator-approved {
+            background: #4CAF50;
+        }
+        
+        .indicator-rejected {
+            background: #F44336;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 6px 14px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #333;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .action-btn.primary {
+            background: #666;
+            color: #fff;
+            border-color: #666;
+        }
+        
+        .action-btn.primary:hover {
+            background: #555;
+        }
+        
+        .action-btn.secondary {
+            background: #e0e0e0;
+        }
+        
+        .action-btn.secondary:hover {
+            background: #d0d0d0;
+        }
+        
+        /* Instructions Panel */
+        .instructions-panel {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px;
+            align-self: flex-start;
+        }
+        
+        .instructions-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .instructions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .instruction-item {
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .instruction-icon {
+            font-weight: bold;
+            color: #2196F3;
+            flex-shrink: 0;
+        }
+        
+        /* Comments Column */
+        .comments-cell {
+            max-width: 200px;
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .comments-empty {
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">LOGO PROGELA</div>
+            <div class="header-title">Portal de Proveedores REPSE</div>
+            <div class="header-user">
+                <div class="user-info">
+                    <span>Proveedor: Servicios Integrales SA</span>
+                    <div class="avatar"></div>
+                </div>
+                <a href="#" class="logout-link">Cerrar sesión</a>
+            </div>
+        </div>
+        
+        <!-- Menu Bar -->
+        <div class="menu-bar">
+            <div class="menu-item">Inicio</div>
+            <div class="menu-item">Mis contratos</div>
+            <div class="menu-item active">Mis periodos</div>
+            <div class="menu-item">Mis documentos</div>
+            <div class="menu-item">Perfil</div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Page Title -->
+            <div class="page-title">Carga de documentos del periodo</div>
+            
+            <!-- Context Header -->
+            <div class="context-header">
+                <div class="context-grid">
+                    <div class="context-item">
+                        <div class="context-label">Proveedor</div>
+                        <div class="context-value">Servicios Integrales SA de CV</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Contrato</div>
+                        <div class="context-value">REPSE 001 - Servicios de mantenimiento</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Periodo</div>
+                        <div class="context-value">Enero 2025 (Mensual)</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Estado del periodo</div>
+                        <div class="status-chip status-open">Abierto</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Fecha de vencimiento</div>
+                        <div class="context-value">15 de febrero de 2025</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="context-label">Días restantes</div>
+                        <div class="context-value" style="color: #FF9800; font-weight: bold;">3 días</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Info Message -->
+            <div class="info-message">
+                <div class="info-icon">i</div>
+                <div class="info-text">
+                    Sube y actualiza la documentación requerida para este periodo. Solo se mostrarán los documentos que te aplican.
+                </div>
+            </div>
+            
+            <!-- Content Layout: Table + Instructions -->
+            <div class="content-layout">
+                <!-- Documents Checklist Table -->
+                <div class="table-container">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Documento requerido</th>
+                                    <th>Periodicidad</th>
+                                    <th>Obligatorio</th>
+                                    <th>Estado</th>
+                                    <th>Última carga</th>
+                                    <th>Comentarios de revisión</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Pago IMSS</strong></td>
+                                    <td>Mensual</td>
+                                    <td>Sí</td>
+                                    <td><span class="status-indicator indicator-pending"></span></td>
+                                    <td>-</td>
+                                    <td class="comments-cell comments-empty">Sin comentarios</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn primary">Subir</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pago Infonavit</strong></td>
+                                    <td>Mensual</td>
+                                    <td>Sí</td>
+                                    <td><span class="status-indicator indicator-review"></span></td>
+                                    <td>06/02/2025</td>
+                                    <td class="comments-cell">En proceso de validación</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn secondary">Ver</button>
+                                            <button class="action-btn secondary">Reemplazar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Declaración ISR</strong></td>
+                                    <td>Mensual</td>
+                                    <td>Sí</td>
+                                    <td><span class="status-indicator indicator-rejected"></span></td>
+                                    <td>05/02/2025</td>
+                                    <td class="comments-cell" style="color: #C62828;">El monto no coincide con la nómina. Favor de corregir.</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn secondary">Ver</button>
+                                            <button class="action-btn primary">Reemplazar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Declaración IVA</strong></td>
+                                    <td>Mensual</td>
+                                    <td>Sí</td>
+                                    <td><span class="status-indicator indicator-pending"></span></td>
+                                    <td>-</td>
+                                    <td class="comments-cell comments-empty">Sin comentarios</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn primary">Subir</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Listado de trabajadores</strong></td>
+                                    <td>Mensual</td>
+                                    <td>Sí</td>
+                                    <td><span class="status-indicator indicator-approved"></span></td>
+                                    <td>04/02/2025</td>
+                                    <td class="comments-cell" style="color: #2E7D32;">Documento aprobado</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn secondary">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CFDI de nómina</strong></td>
+                                    <td>Mensual</td>
+                                    <td>Sí</td>
+                                    <td><span class="status-indicator indicator-approved"></span></td>
+                                    <td>05/02/2025</td>
+                                    <td class="comments-cell" style="color: #2E7D32;">Documento aprobado</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn secondary">Ver</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Acuse de recibo SAT</strong></td>
+                                    <td>Mensual</td>
+                                    <td>No</td>
+                                    <td><span class="status-indicator indicator-pending"></span></td>
+                                    <td>-</td>
+                                    <td class="comments-cell comments-empty">Sin comentarios</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn primary">Subir</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Instructions Panel -->
+                <div class="instructions-panel">
+                    <div class="instructions-title">Instrucciones de carga</div>
+                    <div class="instructions-list">
+                        <div class="instruction-item">
+                            <span class="instruction-icon">•</span>
+                            <span>Formatos permitidos: PDF, XML, Excel</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="instruction-icon">•</span>
+                            <span>Tamaño máximo por archivo: 10 MB</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="instruction-icon">•</span>
+                            <span>Asegúrate de que los documentos sean legibles</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="instruction-icon">•</span>
+                            <span>Los documentos obligatorios deben ser cargados antes del vencimiento</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="instruction-icon">•</span>
+                            <span>Si un documento es rechazado, revisa los comentarios antes de volver a subirlo</span>
+                        </div>
+                        <div class="instruction-item">
+                            <span class="instruction-icon">•</span>
+                            <span>Los documentos en revisión serán validados en un plazo de 2-3 días hábiles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha 360° Proveedor REPSE - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #ffffff;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            height: 72px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .header-logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #999;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: absolute;
+            left: 0;
+            top: 72px;
+            width: 240px;
+            height: calc(100% - 72px);
+            background: #d8d8d8;
+            padding: 24px 16px;
+        }
+        
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .sidebar-item {
+            padding: 12px 16px;
+            background: #c8c8c8;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .sidebar-item.active {
+            background: #b8b8b8;
+            font-weight: bold;
+        }
+        
+        /* Main content */
+        .main-content {
+            margin-left: 240px;
+            margin-top: 72px;
+            padding: 24px;
+            height: calc(100% - 72px);
+            overflow-y: auto;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        /* Provider Header Card */
+        .provider-header {
+            background: #f8f8f8;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .provider-info {
+            flex: 1;
+        }
+        
+        .provider-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        .provider-details {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .detail-label {
+            font-size: 10px;
+            color: #777;
+            text-transform: uppercase;
+        }
+        
+        .detail-value {
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .status-chip {
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .status-active {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .provider-society {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+        
+        .provider-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn-primary {
+            padding: 10px 20px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        .btn-secondary {
+            padding: 10px 20px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #333;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        
+        /* KPI 360 Cards */
+        .kpi-360-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .kpi-360-card {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px;
+            position: relative;
+            min-height: 130px;
+        }
+        
+        .kpi-360-title {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+        
+        .kpi-360-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-top: 12px;
+        }
+        
+        .kpi-360-indicator {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .indicator-green { background: #4CAF50; }
+        .indicator-yellow { background: #FFC107; }
+        .indicator-red { background: #F44336; }
+        
+        /* Two Column Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        /* Heatmap Card */
+        .heatmap-card {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 24px;
+        }
+        
+        .card-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .heatmap-container {
+            margin-bottom: 16px;
+        }
+        
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: 100px repeat(6, 1fr);
+            gap: 8px;
+        }
+        
+        .heatmap-label {
+            font-size: 11px;
+            color: #666;
+            padding: 8px;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .heatmap-header {
+            font-size: 11px;
+            color: #666;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+        }
+        
+        .heatmap-cell {
+            height: 40px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .heat-approved { background: #C8E6C9; }
+        .heat-validating { background: #FFF9C4; }
+        .heat-overdue { background: #FFCDD2; }
+        .heat-na { background: #f5f5f5; }
+        
+        .heatmap-legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 16px;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+        }
+        
+        /* Alerts Panel */
+        .alerts-card {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px;
+            max-height: 400px;
+        }
+        
+        .alerts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+        
+        .alert-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: #f8f8f8;
+            border-radius: 4px;
+            border-left: 3px solid #ccc;
+        }
+        
+        .alert-item.critical {
+            border-left-color: #F44336;
+            background: #FFEBEE;
+        }
+        
+        .alert-item.warning {
+            border-left-color: #FFC107;
+            background: #FFF9C4;
+        }
+        
+        .alert-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .alert-icon.critical {
+            background: #F44336;
+        }
+        
+        .alert-icon.warning {
+            background: #FFC107;
+        }
+        
+        .alert-text {
+            font-size: 12px;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        /* Recent Periods Table */
+        .table-section {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 24px;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            color: #555;
+            font-weight: bold;
+            border-bottom: 2px solid #d0d0d0;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 12px;
+            font-size: 12px;
+            color: #333;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        tr:hover {
+            background: #f8f8f8;
+        }
+        
+        .status-chip-small {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        .status-approved {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .status-validating {
+            background: #FFF9C4;
+            color: #F57F17;
+        }
+        
+        .status-overdue {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+        
+        .action-btn {
+            padding: 4px 12px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 11px;
+            color: #333;
+        }
+        
+        .progress-bar {
+            width: 60px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #4CAF50;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">LOGO PROGELA</div>
+            <div class="header-title">Portal de Proveedores REPSE</div>
+            <div class="header-user">
+                <span>Usuario: Compras / Fiscal</span>
+                <div class="avatar"></div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <div class="sidebar-item">Dashboard</div>
+                <div class="sidebar-item active">Proveedores</div>
+                <div class="sidebar-item">Contratos REPSE</div>
+                <div class="sidebar-item">Expedientes</div>
+                <div class="sidebar-item">Periodos</div>
+                <div class="sidebar-item">Validación</div>
+                <div class="sidebar-item">Configuración</div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                Proveedores > Servicios Integrales SA > Ficha 360° REPSE
+            </div>
+            
+            <!-- Provider Header -->
+            <div class="provider-header">
+                <div class="provider-info">
+                    <div class="provider-name">Servicios Integrales SA de CV</div>
+                    <div class="provider-details">
+                        <div class="detail-item">
+                            <div class="detail-label">RFC</div>
+                            <div class="detail-value">SIS850101ABC</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Folio REPSE</div>
+                            <div class="detail-value">REPSE-2023-001234</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Vigencia REPSE</div>
+                            <div class="detail-value">31/12/2025</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Estado REPSE</div>
+                            <div class="status-chip status-active">Activo</div>
+                        </div>
+                    </div>
+                    <div class="provider-society">Sociedad: PROGELA MX / Grupo PROGELA</div>
+                </div>
+                <div class="provider-actions">
+                    <button class="btn-primary">Ver expediente</button>
+                    <button class="btn-secondary">Ver periodos</button>
+                </div>
+            </div>
+            
+            <!-- KPI 360 Cards -->
+            <div class="kpi-360-row">
+                <div class="kpi-360-card">
+                    <div class="kpi-360-indicator indicator-green"></div>
+                    <div class="kpi-360-title">Expediente de alta / homologación</div>
+                    <div class="kpi-360-value">100%</div>
+                </div>
+                <div class="kpi-360-card">
+                    <div class="kpi-360-indicator indicator-yellow"></div>
+                    <div class="kpi-360-title">Cumplimiento mensual últimos 6 meses</div>
+                    <div class="kpi-360-value">85%</div>
+                </div>
+                <div class="kpi-360-card">
+                    <div class="kpi-360-indicator indicator-green"></div>
+                    <div class="kpi-360-title">ICSOE / SISUB últimos cuatrimestres</div>
+                    <div class="kpi-360-value">4 / 4</div>
+                </div>
+            </div>
+            
+            <!-- Content Grid: Heatmap + Alerts -->
+            <div class="content-grid">
+                <!-- Heatmap -->
+                <div class="heatmap-card">
+                    <div class="card-title">Timeline de cumplimiento por periodo</div>
+                    <div class="heatmap-container">
+                        <div class="heatmap-grid">
+                            <!-- Headers -->
+                            <div></div>
+                            <div class="heatmap-header">Sep</div>
+                            <div class="heatmap-header">Oct</div>
+                            <div class="heatmap-header">Nov</div>
+                            <div class="heatmap-header">Dic</div>
+                            <div class="heatmap-header">Ene</div>
+                            <div class="heatmap-header">Feb</div>
+                            
+                            <!-- Mensual Row -->
+                            <div class="heatmap-label">Mensual</div>
+                            <div class="heatmap-cell heat-approved"></div>
+                            <div class="heatmap-cell heat-approved"></div>
+                            <div class="heatmap-cell heat-approved"></div>
+                            <div class="heatmap-cell heat-validating"></div>
+                            <div class="heatmap-cell heat-overdue"></div>
+                            <div class="heatmap-cell heat-na"></div>
+                            
+                            <!-- Cuatrimestral Row -->
+                            <div class="heatmap-label">Cuatrimestral</div>
+                            <div class="heatmap-cell heat-approved"></div>
+                            <div class="heatmap-cell heat-na"></div>
+                            <div class="heatmap-cell heat-na"></div>
+                            <div class="heatmap-cell heat-na"></div>
+                            <div class="heatmap-cell heat-validating"></div>
+                            <div class="heatmap-cell heat-na"></div>
+                        </div>
+                    </div>
+                    <div class="heatmap-legend">
+                        <div class="legend-item">
+                            <div class="legend-color heat-approved"></div>
+                            <span>Aprobado</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color heat-validating"></div>
+                            <span>En validación / observado</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color heat-overdue"></div>
+                            <span>Vencido / incumplido</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color heat-na"></div>
+                            <span>No aplica</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Alerts Panel -->
+                <div class="alerts-card">
+                    <div class="card-title">Alertas y pendientes REPSE</div>
+                    <div class="alerts-list">
+                        <div class="alert-item critical">
+                            <div class="alert-icon critical"></div>
+                            <div class="alert-text">Opinión SAT vencida desde 02/02/2025</div>
+                        </div>
+                        <div class="alert-item warning">
+                            <div class="alert-icon warning"></div>
+                            <div class="alert-text">Opinión IMSS vence en 10 días (25/02/2025)</div>
+                        </div>
+                        <div class="alert-item critical">
+                            <div class="alert-icon critical"></div>
+                            <div class="alert-text">Periodo Ene 2025 vencido sin aprobar</div>
+                        </div>
+                        <div class="alert-item warning">
+                            <div class="alert-icon warning"></div>
+                            <div class="alert-text">ICSOE Q1 2025 no recibido - Vence 20/02/2025</div>
+                        </div>
+                        <div class="alert-item warning">
+                            <div class="alert-icon warning"></div>
+                            <div class="alert-text">Declaración ISR Ene 2025 pendiente de revisión</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Periods Table -->
+            <div class="table-section">
+                <div class="section-title">Periodos recientes del proveedor</div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Periodo</th>
+                                <th>Tipo</th>
+                                <th>Sociedad</th>
+                                <th>% docs cargados</th>
+                                <th>% docs aprobados</th>
+                                <th>Estatus</th>
+                                <th>Fecha de vencimiento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Feb 2025</td>
+                                <td>Mensual</td>
+                                <td>PROGELA MX</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    0%
+                                </td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    0%
+                                </td>
+                                <td><span class="status-chip-small" style="background: #E3F2FD; color: #1565C0;">No iniciado</span></td>
+                                <td>15/03/2025</td>
+                                <td><button class="action-btn">Ver periodo</button></td>
+                            </tr>
+                            <tr>
+                                <td>Ene 2025</td>
+                                <td>Mensual</td>
+                                <td>PROGELA MX</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                    85%
+                                </td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 60%;"></div>
+                                    </div>
+                                    60%
+                                </td>
+                                <td><span class="status-chip-small status-overdue">Vencido</span></td>
+                                <td>15/02/2025</td>
+                                <td><button class="action-btn">Ver periodo</button></td>
+                            </tr>
+                            <tr>
+                                <td>Q1 2025</td>
+                                <td>Cuatrimestral</td>
+                                <td>PROGELA MX</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 70%;"></div>
+                                    </div>
+                                    70%
+                                </td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 50%;"></div>
+                                    </div>
+                                    50%
+                                </td>
+                                <td><span class="status-chip-small status-validating">En validación</span></td>
+                                <td>20/02/2025</td>
+                                <td><button class="action-btn">Ver periodo</button></td>
+                            </tr>
+                            <tr>
+                                <td>Dic 2024</td>
+                                <td>Mensual</td>
+                                <td>PROGELA MX</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    100%
+                                </td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 90%;"></div>
+                                    </div>
+                                    90%
+                                </td>
+                                <td><span class="status-chip-small status-validating">En validación</span></td>
+                                <td>15/01/2025</td>
+                                <td><button class="action-btn">Ver periodo</button></td>
+                            </tr>
+                            <tr>
+                                <td>Nov 2024</td>
+                                <td>Mensual</td>
+                                <td>PROGELA MX</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    100%
+                                </td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    100%
+                                </td>
+                                <td><span class="status-chip-small status-approved">Aprobado</span></td>
+                                <td>15/12/2024</td>
+                                <td><button class="action-btn">Ver periodo</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

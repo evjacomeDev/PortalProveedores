@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Ejecutivo REPSE - Wireframe Ultra Simplificado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #ffffff;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            height: 72px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .header-logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #999;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: absolute;
+            left: 0;
+            top: 72px;
+            width: 240px;
+            height: calc(100% - 72px);
+            background: #d8d8d8;
+            padding: 24px 16px;
+        }
+        
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .sidebar-item {
+            padding: 12px 16px;
+            background: #c8c8c8;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .sidebar-item:first-child {
+            background: #b8b8b8;
+            font-weight: bold;
+        }
+        
+        /* Main content */
+        .main-content {
+            margin-left: 240px;
+            margin-top: 72px;
+            padding: 24px;
+            height: calc(100% - 72px);
+            overflow-y: auto;
+        }
+        
+        /* Page Title */
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        /* Filters */
+        .filters {
+            background: #f0f0f0;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+        }
+        
+        .filters-row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 160px;
+        }
+        
+        .filter-label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .filter-input {
+            height: 36px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .filter-button {
+            height: 36px;
+            padding: 0 24px;
+            background: #999;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .filter-button:hover {
+            background: #888;
+        }
+        
+        /* Tables Section */
+        .tables-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        /* Table Container */
+        .table-container {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .table-header {
+            background: #f8f8f8;
+            padding: 16px 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .table-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            color: #555;
+            font-weight: bold;
+            border-bottom: 2px solid #d0d0d0;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 12px;
+            font-size: 13px;
+            color: #333;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        tr:hover {
+            background: #f8f8f8;
+        }
+        
+        /* Status Chips */
+        .status-chip {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        .status-active {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .status-risk {
+            background: #FFF9C4;
+            color: #F57F17;
+        }
+        
+        .status-blocked {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+        
+        .status-approved {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .status-pending {
+            background: #BBDEFB;
+            color: #1565C0;
+        }
+        
+        .status-expired {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+        
+        /* Action Button */
+        .action-btn {
+            padding: 6px 16px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #333;
+            cursor: pointer;
+        }
+        
+        .action-btn:hover {
+            background: #d0d0d0;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">LOGO PROGELA</div>
+            <div class="header-title">Portal de Proveedores REPSE</div>
+            <div class="header-user">
+                <span>Usuario: Fiscal/Compliance</span>
+                <div class="avatar"></div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <div class="sidebar-item">Dashboard</div>
+                <div class="sidebar-item">Proveedores</div>
+                <div class="sidebar-item">Contratos REPSE</div>
+                <div class="sidebar-item">Expedientes</div>
+                <div class="sidebar-item">Periodos</div>
+                <div class="sidebar-item">Validación</div>
+                <div class="sidebar-item">Configuración</div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Page Title -->
+            <div class="page-title">Dashboard Ejecutivo REPSE</div>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Sociedad</label>
+                        <select class="filter-input">
+                            <option>Todas</option>
+                            <option>PROGELA MX</option>
+                            <option>PROGELA SA</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Mes / periodo</label>
+                        <select class="filter-input">
+                            <option>Enero 2025</option>
+                            <option>Febrero 2025</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Tipo de periodo</label>
+                        <select class="filter-input">
+                            <option>Mensual / Cuatrimestral</option>
+                        </select>
+                    </div>
+                    <button class="filter-button">Aplicar filtros</button>
+                </div>
+            </div>
+            
+            <!-- Tables Section -->
+            <div class="tables-section">
+                <!-- Providers Table -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <div class="table-title">Proveedores por estado</div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Proveedor</th>
+                                    <th>RFC</th>
+                                    <th># contratos REPSE</th>
+                                    <th>% periodos al día</th>
+                                    <th># periodos vencidos</th>
+                                    <th>Estado REPSE</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Servicios Integrales SA</td>
+                                    <td>SIS850101ABC</td>
+                                    <td>3</td>
+                                    <td>65%</td>
+                                    <td>4</td>
+                                    <td><span class="status-chip status-risk">En riesgo</span></td>
+                                    <td><button class="action-btn">Ver detalle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Outsourcing Global MX</td>
+                                    <td>OGM910202XYZ</td>
+                                    <td>5</td>
+                                    <td>92%</td>
+                                    <td>1</td>
+                                    <td><span class="status-chip status-active">Activo</span></td>
+                                    <td><button class="action-btn">Ver detalle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Recursos Humanos Plus</td>
+                                    <td>RHP920404GHI</td>
+                                    <td>2</td>
+                                    <td>45%</td>
+                                    <td>8</td>
+                                    <td><span class="status-chip status-blocked">Bloqueado</span></td>
+                                    <td><button class="action-btn">Ver detalle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Personal Temporal SA</td>
+                                    <td>PTM880505JKL</td>
+                                    <td>4</td>
+                                    <td>88%</td>
+                                    <td>2</td>
+                                    <td><span class="status-chip status-active">Activo</span></td>
+                                    <td><button class="action-btn">Ver detalle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Talento Empresarial SC</td>
+                                    <td>TES950606MNO</td>
+                                    <td>3</td>
+                                    <td>75%</td>
+                                    <td>3</td>
+                                    <td><span class="status-chip status-active">Activo</span></td>
+                                    <td><button class="action-btn">Ver detalle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Administración de Personal SC</td>
+                                    <td>APS870707PQR</td>
+                                    <td>6</td>
+                                    <td>95%</td>
+                                    <td>0</td>
+                                    <td><span class="status-chip status-active">Activo</span></td>
+                                    <td><button class="action-btn">Ver detalle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Soluciones Laborales MX</td>
+                                    <td>SLM900808STU</td>
+                                    <td>2</td>
+                                    <td>58%</td>
+                                    <td>5</td>
+                                    <td><span class="status-chip status-risk">En riesgo</span></td>
+                                    <td><button class="action-btn">Ver detalle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Gestión de Capital Humano</td>
+                                    <td>GCH930909VWX</td>
+                                    <td>4</td>
+                                    <td>82%</td>
+                                    <td>2</td>
+                                    <td><span class="status-chip status-active">Activo</span></td>
+                                    <td><button class="action-btn">Ver detalle</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Periods Table -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <div class="table-title">Periodos recientes</div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Proveedor</th>
+                                    <th>Contrato</th>
+                                    <th>Periodo</th>
+                                    <th>Tipo</th>
+                                    <th>% docs aprobados</th>
+                                    <th>Estado</th>
+                                    <th>Fecha vencimiento</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Servicios Integrales SA</td>
+                                    <td>REPSE 001</td>
+                                    <td>Ene 2025</td>
+                                    <td>Mensual</td>
+                                    <td>70%</td>
+                                    <td><span class="status-chip status-pending">En validación</span></td>
+                                    <td>15/02/2025</td>
+                                    <td><button class="action-btn">Ver periodo</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Outsourcing Global MX</td>
+                                    <td>REPSE 002</td>
+                                    <td>Ene 2025</td>
+                                    <td>Mensual</td>
+                                    <td>100%</td>
+                                    <td><span class="status-chip status-approved">Aprobado</span></td>
+                                    <td>15/02/2025</td>
+                                    <td><button class="action-btn">Ver periodo</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Recursos Humanos Plus</td>
+                                    <td>REPSE 003</td>
+                                    <td>Dic 2024</td>
+                                    <td>Mensual</td>
+                                    <td>45%</td>
+                                    <td><span class="status-chip status-expired">Vencido</span></td>
+                                    <td>15/01/2025</td>
+                                    <td><button class="action-btn">Ver periodo</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Personal Temporal SA</td>
+                                    <td>REPSE 005</td>
+                                    <td>Q4 2024</td>
+                                    <td>Cuatrimestral</td>
+                                    <td>85%</td>
+                                    <td><span class="status-chip status-pending">En validación</span></td>
+                                    <td>20/02/2025</td>
+                                    <td><button class="action-btn">Ver periodo</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Talento Empresarial SC</td>
+                                    <td>REPSE 004</td>
+                                    <td>Ene 2025</td>
+                                    <td>Mensual</td>
+                                    <td>95%</td>
+                                    <td><span class="status-chip status-approved">Aprobado</span></td>
+                                    <td>15/02/2025</td>
+                                    <td><button class="action-btn">Ver periodo</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Administración de Personal SC</td>
+                                    <td>REPSE 006</td>
+                                    <td>Ene 2025</td>
+                                    <td>Mensual</td>
+                                    <td>100%</td>
+                                    <td><span class="status-chip status-approved">Aprobado</span></td>
+                                    <td>15/02/2025</td>
+                                    <td><button class="action-btn">Ver periodo</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Soluciones Laborales MX</td>
+                                    <td>REPSE 007</td>
+                                    <td>Dic 2024</td>
+                                    <td>Mensual</td>
+                                    <td>55%</td>
+                                    <td><span class="status-chip status-expired">Vencido</span></td>
+                                    <td>15/01/2025</td>
+                                    <td><button class="action-btn">Ver periodo</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Gestión de Capital Humano</td>
+                                    <td>REPSE 008</td>
+                                    <td>Ene 2025</td>
+                                    <td>Mensual</td>
+                                    <td>90%</td>
+                                    <td><span class="status-chip status-pending">En validación</span></td>
+                                    <td>15/02/2025</td>
+                                    <td><button class="action-btn">Ver periodo</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

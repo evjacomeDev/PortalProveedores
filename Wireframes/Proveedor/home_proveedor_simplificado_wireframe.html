@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Proveedor REPSE - Wireframe Simplificado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #ffffff;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            height: 72px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .header-logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #999;
+        }
+        
+        .logout-link {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .logout-link:hover {
+            text-decoration: underline;
+            color: #333;
+        }
+        
+        /* Horizontal Menu */
+        .menu-bar {
+            height: 56px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #d0d0d0;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 8px;
+        }
+        
+        .menu-item {
+            padding: 12px 24px;
+            font-size: 14px;
+            color: #555;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .menu-item:hover {
+            background: #e8e8e8;
+        }
+        
+        .menu-item.active {
+            background: #d8d8d8;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 32px 24px;
+            height: calc(900px - 72px - 56px);
+            overflow-y: auto;
+        }
+        
+        /* Welcome Section */
+        .welcome-section {
+            margin-bottom: 32px;
+        }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        .page-description {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        
+        .btn-primary {
+            padding: 12px 32px;
+            background: #666;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: #555;
+        }
+        
+        /* Two Column Lists */
+        .lists-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        .list-section {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 24px;
+        }
+        
+        .list-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .list-items {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .list-item {
+            padding: 16px;
+            background: #f8f8f8;
+            border-left: 3px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .list-item.urgent {
+            border-left-color: #FF9800;
+            background: #FFF9F0;
+        }
+        
+        .list-item.rejected {
+            border-left-color: #F44336;
+            background: #FFEBEE;
+        }
+        
+        .list-item.info {
+            border-left-color: #2196F3;
+            background: #E3F2FD;
+        }
+        
+        .item-text {
+            font-size: 13px;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .item-meta {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .status-chip {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+        
+        .chip-urgent {
+            background: #FFE0B2;
+            color: #E65100;
+        }
+        
+        .chip-pending {
+            background: #BBDEFB;
+            color: #1565C0;
+        }
+        
+        .chip-rejected {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">LOGO PROGELA</div>
+            <div class="header-title">Portal de Proveedores REPSE</div>
+            <div class="header-user">
+                <div class="user-info">
+                    <span>Proveedor: Servicios Integrales SA</span>
+                    <div class="avatar"></div>
+                </div>
+                <a href="#" class="logout-link">Cerrar sesión</a>
+            </div>
+        </div>
+        
+        <!-- Menu Bar -->
+        <div class="menu-bar">
+            <div class="menu-item active">Inicio</div>
+            <div class="menu-item">Mis contratos</div>
+            <div class="menu-item">Mis periodos</div>
+            <div class="menu-item">Mis documentos</div>
+            <div class="menu-item">Perfil</div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="page-title">Mis obligaciones REPSE</div>
+                <div class="page-description">
+                    Aquí puedes ver tus contratos, periodos abiertos y documentos pendientes de carga o corrección.
+                </div>
+                <button class="btn-primary">Ir a mis periodos</button>
+            </div>
+            
+            <!-- Two Column Lists -->
+            <div class="lists-container">
+                <!-- Urgent Pending -->
+                <div class="list-section">
+                    <div class="list-title">Pendientes más urgentes</div>
+                    <div class="list-items">
+                        <div class="list-item urgent">
+                            <div class="item-text">
+                                <strong>Pago IMSS</strong> - Enero 2025<br>
+                                Contrato REPSE 001 – Servicios de mantenimiento
+                            </div>
+                            <div class="item-meta">
+                                Vence en 3 días (15/02/2025)
+                            </div>
+                            <span class="status-chip chip-urgent">Urgente</span>
+                        </div>
+                        
+                        <div class="list-item urgent">
+                            <div class="item-text">
+                                <strong>Declaración ISR</strong> - Enero 2025<br>
+                                Contrato REPSE 001 – Servicios de mantenimiento
+                            </div>
+                            <div class="item-meta">
+                                Vence en 5 días (17/02/2025)
+                            </div>
+                            <span class="status-chip chip-urgent">Urgente</span>
+                        </div>
+                        
+                        <div class="list-item">
+                            <div class="item-text">
+                                <strong>Pago Infonavit</strong> - Enero 2025<br>
+                                Contrato REPSE 002 – Servicios administrativos
+                            </div>
+                            <div class="item-meta">
+                                Vence en 8 días (20/02/2025)
+                            </div>
+                            <span class="status-chip chip-pending">Pendiente</span>
+                        </div>
+                        
+                        <div class="list-item">
+                            <div class="item-text">
+                                <strong>CFDI de nómina</strong> - Enero 2025<br>
+                                Contrato REPSE 001 – Servicios de mantenimiento
+                            </div>
+                            <div class="item-meta">
+                                Vence en 10 días (22/02/2025)
+                            </div>
+                            <span class="status-chip chip-pending">Pendiente</span>
+                        </div>
+                        
+                        <div class="list-item">
+                            <div class="item-text">
+                                <strong>Opinión de cumplimiento SAT</strong> - Q4 2024<br>
+                                Contrato REPSE 001 – Servicios de mantenimiento
+                            </div>
+                            <div class="item-meta">
+                                Vence en 12 días (24/02/2025)
+                            </div>
+                            <span class="status-chip chip-pending">Pendiente</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notifications -->
+                <div class="list-section">
+                    <div class="list-title">Últimas notificaciones</div>
+                    <div class="list-items">
+                        <div class="list-item rejected">
+                            <div class="item-text">
+                                <strong>Documento rechazado</strong><br>
+                                Pago IMSS Diciembre 2024 – revisar comentarios del validador
+                            </div>
+                            <div class="item-meta">
+                                Hace 2 horas
+                            </div>
+                            <span class="status-chip chip-rejected">Rechazado</span>
+                        </div>
+                        
+                        <div class="list-item rejected">
+                            <div class="item-text">
+                                <strong>Documento rechazado</strong><br>
+                                Listado de trabajadores Diciembre 2024 – formato incorrecto
+                            </div>
+                            <div class="item-meta">
+                                Hace 5 horas
+                            </div>
+                            <span class="status-chip chip-rejected">Rechazado</span>
+                        </div>
+                        
+                        <div class="list-item info">
+                            <div class="item-text">
+                                <strong>Nuevo periodo abierto</strong><br>
+                                Febrero 2025 disponible para Contrato REPSE 001
+                            </div>
+                            <div class="item-meta">
+                                Hace 1 día
+                            </div>
+                        </div>
+                        
+                        <div class="list-item info">
+                            <div class="item-text">
+                                <strong>Documento aprobado</strong><br>
+                                Pago Infonavit Diciembre 2024 aprobado correctamente
+                            </div>
+                            <div class="item-meta">
+                                Hace 2 días
+                            </div>
+                        </div>
+                        
+                        <div class="list-item info">
+                            <div class="item-text">
+                                <strong>Recordatorio</strong><br>
+                                El periodo Enero 2025 vence el 15 de febrero
+                            </div>
+                            <div class="item-meta">
+                                Hace 3 días
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

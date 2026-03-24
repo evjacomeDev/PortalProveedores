@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contratos Proveedor REPSE - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #ffffff;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            height: 72px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .header-logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #999;
+        }
+        
+        .logout-link {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+        }
+        
+        /* Menu Bar */
+        .menu-bar {
+            height: 56px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #d0d0d0;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 8px;
+        }
+        
+        .menu-item {
+            padding: 12px 24px;
+            font-size: 14px;
+            color: #555;
+            border-radius: 4px;
+        }
+        
+        .menu-item.active {
+            background: #d8d8d8;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 24px;
+            height: calc(900px - 72px - 56px);
+            overflow-y: auto;
+        }
+        
+        /* Page Title */
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        /* Filters */
+        .filters {
+            background: #f0f0f0;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+        }
+        
+        .filters-row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 180px;
+        }
+        
+        .filter-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .filter-select {
+            height: 36px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .filter-button {
+            height: 36px;
+            padding: 0 24px;
+            background: #999;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        /* Section Title */
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        
+        /* Tables */
+        .table-container {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            color: #555;
+            font-weight: bold;
+            border-bottom: 2px solid #d0d0d0;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 12px;
+            font-size: 13px;
+            color: #333;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        tr:hover {
+            background: #f8f8f8;
+        }
+        
+        tr.selected {
+            background: #e3f2fd;
+        }
+        
+        .action-btn {
+            padding: 6px 16px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #333;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .action-btn:hover {
+            background: #d0d0d0;
+        }
+        
+        /* Status Chips */
+        .status-chip {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        .status-open {
+            background: #BBDEFB;
+            color: #1565C0;
+        }
+        
+        .status-review {
+            background: #FFF9C4;
+            color: #F57F17;
+        }
+        
+        .status-approved {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .status-expired {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+        
+        /* Two Column Layout for Tables */
+        .tables-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        
+        .tables-layout.two-column {
+            grid-template-columns: 1fr 1fr;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">LOGO PROGELA</div>
+            <div class="header-title">Portal de Proveedores REPSE</div>
+            <div class="header-user">
+                <div class="user-info">
+                    <span>Proveedor: Servicios Integrales SA</span>
+                    <div class="avatar"></div>
+                </div>
+                <a href="#" class="logout-link">Cerrar sesión</a>
+            </div>
+        </div>
+        
+        <!-- Menu Bar -->
+        <div class="menu-bar">
+            <div class="menu-item">Inicio</div>
+            <div class="menu-item active">Mis contratos</div>
+            <div class="menu-item">Mis periodos</div>
+            <div class="menu-item">Mis documentos</div>
+            <div class="menu-item">Perfil</div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Page Title -->
+            <div class="page-title">Mis contratos</div>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Sociedad</label>
+                        <select class="filter-select">
+                            <option>Todas</option>
+                            <option>PROGELA MX</option>
+                            <option>PROGELA SA</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Contrato</label>
+                        <select class="filter-select">
+                            <option>Todos</option>
+                            <option>REPSE 001</option>
+                            <option>REPSE 002</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Estatus de periodo</label>
+                        <select class="filter-select">
+                            <option>Todos</option>
+                            <option>Abierto</option>
+                            <option>En revisión</option>
+                            <option>Aprobado</option>
+                            <option>Vencido</option>
+                        </select>
+                    </div>
+                    <button class="filter-button">Aplicar filtros</button>
+                </div>
+            </div>
+            
+            <!-- Contracts Table -->
+            <div class="section-title">Contratos REPSE vigentes</div>
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Contrato</th>
+                                <th>Sociedad</th>
+                                <th>Servicio</th>
+                                <th>Vigencia</th>
+                                <th>Periodos abiertos</th>
+                                <th>Periodos vencidos</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="selected">
+                                <td>REPSE 001</td>
+                                <td>PROGELA MX</td>
+                                <td>Servicios de mantenimiento</td>
+                                <td>31/12/2025</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td><button class="action-btn">Ver periodos</button></td>
+                            </tr>
+                            <tr>
+                                <td>REPSE 002</td>
+                                <td>PROGELA MX</td>
+                                <td>Servicios administrativos</td>
+                                <td>15/06/2026</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td><button class="action-btn">Ver periodos</button></td>
+                            </tr>
+                            <tr>
+                                <td>REPSE 003</td>
+                                <td>PROGELA SA</td>
+                                <td>Servicios de limpieza</td>
+                                <td>20/09/2025</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td><button class="action-btn">Ver periodos</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Periods Table -->
+            <div class="section-title">Periodos del contrato seleccionado: REPSE 001 - Servicios de mantenimiento</div>
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Periodo</th>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                                <th>Fecha de vencimiento</th>
+                                <th>Documentos pendientes</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Feb 2025</td>
+                                <td>Mensual</td>
+                                <td><span class="status-chip status-open">Abierto</span></td>
+                                <td>15/03/2025</td>
+                                <td>7</td>
+                                <td><button class="action-btn">Ir a carga de documentos</button></td>
+                            </tr>
+                            <tr>
+                                <td>Ene 2025</td>
+                                <td>Mensual</td>
+                                <td><span class="status-chip status-review">En revisión</span></td>
+                                <td>15/02/2025</td>
+                                <td>2</td>
+                                <td><button class="action-btn">Ir a carga de documentos</button></td>
+                            </tr>
+                            <tr>
+                                <td>Q4 2024</td>
+                                <td>Cuatrimestral</td>
+                                <td><span class="status-chip status-review">En revisión</span></td>
+                                <td>20/02/2025</td>
+                                <td>1</td>
+                                <td><button class="action-btn">Ir a carga de documentos</button></td>
+                            </tr>
+                            <tr>
+                                <td>Dic 2024</td>
+                                <td>Mensual</td>
+                                <td><span class="status-chip status-approved">Aprobado</span></td>
+                                <td>15/01/2025</td>
+                                <td>0</td>
+                                <td><button class="action-btn">Ver documentos</button></td>
+                            </tr>
+                            <tr>
+                                <td>Nov 2024</td>
+                                <td>Mensual</td>
+                                <td><span class="status-chip status-approved">Aprobado</span></td>
+                                <td>15/12/2024</td>
+                                <td>0</td>
+                                <td><button class="action-btn">Ver documentos</button></td>
+                            </tr>
+                            <tr>
+                                <td>Oct 2024</td>
+                                <td>Mensual</td>
+                                <td><span class="status-chip status-expired">Vencido</span></td>
+                                <td>15/11/2024</td>
+                                <td>3</td>
+                                <td><button class="action-btn">Ir a carga de documentos</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

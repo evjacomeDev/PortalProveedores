@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Proveedores REPSE - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #ffffff;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            height: 72px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .header-logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #999;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: absolute;
+            left: 0;
+            top: 72px;
+            width: 240px;
+            height: calc(100% - 72px);
+            background: #d8d8d8;
+            padding: 24px 16px;
+        }
+        
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .sidebar-item {
+            padding: 12px 16px;
+            background: #c8c8c8;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .sidebar-item.active {
+            background: #b8b8b8;
+            font-weight: bold;
+        }
+        
+        /* Main content */
+        .main-content {
+            margin-left: 240px;
+            margin-top: 72px;
+            padding: 24px;
+            height: calc(100% - 72px);
+            overflow-y: auto;
+        }
+        
+        /* Page Title */
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        /* Filters */
+        .filters {
+            background: #f0f0f0;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+        }
+        
+        .filters-row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 160px;
+        }
+        
+        .filter-group.search {
+            flex: 2;
+            min-width: 240px;
+        }
+        
+        .filter-label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .filter-input {
+            height: 36px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .filters-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .filter-button {
+            height: 36px;
+            padding: 0 24px;
+            background: #999;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        .filter-button-secondary {
+            height: 36px;
+            padding: 0 24px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #555;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        /* KPI Cards */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .kpi-card {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px;
+            position: relative;
+            min-height: 110px;
+        }
+        
+        .kpi-title {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .kpi-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-top: 8px;
+        }
+        
+        .kpi-indicator {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .indicator-green { background: #4CAF50; }
+        .indicator-blue { background: #2196F3; }
+        .indicator-yellow { background: #FFC107; }
+        .indicator-red { background: #F44336; }
+        
+        /* Actions Bar */
+        .actions-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .btn-export {
+            height: 36px;
+            padding: 0 20px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        .btn-new {
+            height: 36px;
+            padding: 0 20px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #333;
+            font-size: 13px;
+        }
+        
+        /* Table Container */
+        .table-container {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            color: #555;
+            font-weight: bold;
+            border-bottom: 2px solid #d0d0d0;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 12px;
+            font-size: 12px;
+            color: #333;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        tr:hover {
+            background: #f8f8f8;
+        }
+        
+        .status-chip {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        
+        .status-preregistered {
+            background: #E3F2FD;
+            color: #1565C0;
+        }
+        
+        .status-validating {
+            background: #E1F5FE;
+            color: #0277BD;
+        }
+        
+        .status-active {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .status-risk {
+            background: #FFF9C4;
+            color: #F57F17;
+        }
+        
+        .status-blocked {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+        
+        .status-inactive {
+            background: #E0E0E0;
+            color: #616161;
+        }
+        
+        .sat-alert {
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            display: inline-block;
+        }
+        
+        .sat-none {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+        
+        .sat-warning {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+        
+        .sat-critical {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .action-btn {
+            padding: 4px 10px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 11px;
+            color: #333;
+            white-space: nowrap;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+        }
+        
+        .pagination-info {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .pagination-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .pagination-btn {
+            width: 32px;
+            height: 32px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+        }
+        
+        .pagination-btn.active {
+            background: #4CAF50;
+            color: #fff;
+            border-color: #4CAF50;
+        }
+        
+        .pagination-btn.disabled {
+            background: #f8f8f8;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">LOGO PROGELA</div>
+            <div class="header-title">Portal de Proveedores REPSE</div>
+            <div class="header-user">
+                <span>Usuario: Compras / Fiscal</span>
+                <div class="avatar"></div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <div class="sidebar-item">Dashboard</div>
+                <div class="sidebar-item active">Proveedores</div>
+                <div class="sidebar-item">Contratos REPSE</div>
+                <div class="sidebar-item">Expedientes</div>
+                <div class="sidebar-item">Periodos</div>
+                <div class="sidebar-item">Validación</div>
+                <div class="sidebar-item">Configuración</div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Page Title -->
+            <div class="page-title">Listado de proveedores REPSE</div>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filters-row">
+                    <div class="filter-group search">
+                        <div class="filter-label">Buscar</div>
+                        <div class="filter-input">Nombre / RFC</div>
+                    </div>
+                    <div class="filter-group">
+                        <div class="filter-label">Sociedad</div>
+                        <div class="filter-input">Todas</div>
+                    </div>
+                    <div class="filter-group">
+                        <div class="filter-label">Tipo de proveedor</div>
+                        <div class="filter-input">Todos</div>
+                    </div>
+                    <div class="filter-group">
+                        <div class="filter-label">Estado REPSE</div>
+                        <div class="filter-input">Todos</div>
+                    </div>
+                    <div class="filter-group">
+                        <div class="filter-label">Listas SAT</div>
+                        <div class="filter-input">Todos</div>
+                    </div>
+                </div>
+                <div class="filters-actions">
+                    <button class="filter-button">Aplicar filtros</button>
+                    <button class="filter-button-secondary">Limpiar filtros</button>
+                </div>
+            </div>
+            
+            <!-- KPI Cards -->
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-indicator indicator-green"></div>
+                    <div class="kpi-title">Proveedores REPSE activos</div>
+                    <div class="kpi-value">120</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-indicator indicator-blue"></div>
+                    <div class="kpi-title">En validación</div>
+                    <div class="kpi-value">15</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-indicator indicator-yellow"></div>
+                    <div class="kpi-title">En riesgo</div>
+                    <div class="kpi-value">8</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-indicator indicator-red"></div>
+                    <div class="kpi-title">Bloqueados</div>
+                    <div class="kpi-value">3</div>
+                </div>
+            </div>
+            
+            <!-- Actions Bar -->
+            <div class="actions-bar">
+                <button class="btn-new">+ Nuevo proveedor</button>
+                <button class="btn-export">Exportar a Excel</button>
+            </div>
+            
+            <!-- Table -->
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Proveedor</th>
+                                <th>RFC</th>
+                                <th>Tipo de proveedor</th>
+                                <th>Folio REPSE</th>
+                                <th>Vigencia REPSE</th>
+                                <th>Estado REPSE</th>
+                                <th>% periodos al día</th>
+                                <th># periodos vencidos</th>
+                                <th>Lista SAT</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Servicios Integrales SA de CV</td>
+                                <td>SIS850101ABC</td>
+                                <td>Servicios especializados</td>
+                                <td>REPSE-2023-001234</td>
+                                <td>31/12/2025</td>
+                                <td><span class="status-chip status-active">Activo</span></td>
+                                <td>92%</td>
+                                <td>2</td>
+                                <td><span class="sat-alert sat-none">Sin alerta</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn">Ver ficha</button>
+                                        <button class="action-btn">Ver expediente</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Outsourcing Global MX SA</td>
+                                <td>OGM910202XYZ</td>
+                                <td>Mano de obra</td>
+                                <td>REPSE-2024-002456</td>
+                                <td>15/06/2026</td>
+                                <td><span class="status-chip status-risk">En riesgo</span></td>
+                                <td>65%</td>
+                                <td>8</td>
+                                <td><span class="sat-alert sat-warning">69</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn">Ver ficha</button>
+                                        <button class="action-btn">Ver expediente</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Constructora del Norte SC</td>
+                                <td>CDN780303DEF</td>
+                                <td>Obra especializada</td>
+                                <td>REPSE-2023-003789</td>
+                                <td>28/02/2025</td>
+                                <td><span class="status-chip status-active">Activo</span></td>
+                                <td>98%</td>
+                                <td>0</td>
+                                <td><span class="sat-alert sat-none">Sin alerta</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn">Ver ficha</button>
+                                        <button class="action-btn">Ver expediente</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Recursos Humanos Plus SA</td>
+                                <td>RHP920404GHI</td>
+                                <td>Servicios especializados</td>
+                                <td>REPSE-2024-004012</td>
+                                <td>10/08/2025</td>
+                                <td><span class="status-chip status-blocked">Bloqueado</span></td>
+                                <td>45%</td>
+                                <td>12</td>
+                                <td><span class="sat-alert sat-critical">69-B Definitivo</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn">Ver ficha</button>
+                                        <button class="action-btn">Ver expediente</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Personal Temporal México SA</td>
+                                <td>PTM880505JKL</td>
+                                <td>Mano de obra</td>
+                                <td>REPSE-2025-005345</td>
+                                <td>30/11/2026</td>
+                                <td><span class="status-chip status-validating">En validación</span></td>
+                                <td>100%</td>
+                                <td>0</td>
+                                <td><span class="sat-alert sat-none">Sin alerta</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn">Ver ficha</button>
+                                        <button class="action-btn">Ver expediente</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Grupo Laboral del Centro SA</td>
+                                <td>GLC950606MNO</td>
+                                <td>Mixto</td>
+                                <td>REPSE-2024-006678</td>
+                                <td>22/04/2026</td>
+                                <td><span class="status-chip status-active">Activo</span></td>
+                                <td>88%</td>
+                                <td>3</td>
+                                <td><span class="sat-alert sat-warning">69-B Presunto</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn">Ver ficha</button>
+                                        <button class="action-btn">Ver expediente</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Administración de Personal SA</td>
+                                <td>ADP870707PQR</td>
+                                <td>Servicios especializados</td>
+                                <td>REPSE-2023-007901</td>
+                                <td>18/09/2025</td>
+                                <td><span class="status-chip status-preregistered">Pre-registrado</span></td>
+                                <td>0%</td>
+                                <td>0</td>
+                                <td><span class="sat-alert sat-none">Sin alerta</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn">Ver ficha</button>
+                                        <button class="action-btn">Ver expediente</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <div class="pagination-info">Mostrando 1–20 de 145 proveedores</div>
+                <div class="pagination-controls">
+                    <div class="pagination-btn disabled">&lt;&lt;</div>
+                    <div class="pagination-btn disabled">&lt;</div>
+                    <div class="pagination-btn active">1</div>
+                    <div class="pagination-btn">2</div>
+                    <div class="pagination-btn">3</div>
+                    <div class="pagination-btn">4</div>
+                    <div class="pagination-btn">5</div>
+                    <div class="pagination-btn">&gt;</div>
+                    <div class="pagination-btn">&gt;&gt;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

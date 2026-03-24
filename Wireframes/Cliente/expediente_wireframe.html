@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expediente Digital REPSE - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #ffffff;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            height: 72px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .header-logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #999;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: absolute;
+            left: 0;
+            top: 72px;
+            width: 240px;
+            height: calc(100% - 72px);
+            background: #d8d8d8;
+            padding: 24px 16px;
+        }
+        
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .sidebar-item {
+            padding: 12px 16px;
+            background: #c8c8c8;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .sidebar-item.active {
+            background: #b8b8b8;
+            font-weight: bold;
+        }
+        
+        /* Main content */
+        .main-content {
+            margin-left: 240px;
+            margin-top: 72px;
+            padding: 24px;
+            height: calc(100% - 72px);
+            overflow-y: auto;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        /* Provider Header Card */
+        .provider-header {
+            background: #f8f8f8;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+        }
+        
+        .provider-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        .provider-info {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .info-label {
+            font-size: 11px;
+            color: #777;
+        }
+        
+        .info-value {
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .status-chip {
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .status-active {
+            background: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .status-risk {
+            background: #FFF9C4;
+            color: #F57F17;
+        }
+        
+        .status-blocked {
+            background: #FFCDD2;
+            color: #C62828;
+        }
+        
+        .contract-name {
+            font-size: 14px;
+            color: #555;
+            margin-top: 8px;
+        }
+        
+        /* Two Column Layout */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 24px;
+        }
+        
+        /* Left Column - Sections */
+        .sections-menu {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 16px 0;
+        }
+        
+        .section-item {
+            padding: 12px 20px;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+        
+        .section-item.active {
+            background: #f5f5f5;
+            color: #333;
+            font-weight: bold;
+            border-left-color: #666;
+        }
+        
+        /* Right Column */
+        .main-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* Filters */
+        .filters-bar {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 16px 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .filter-label {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .filter-input {
+            width: 160px;
+            height: 32px;
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 12px;
+            color: #333;
+        }
+        
+        /* Period Summary */
+        .period-summary {
+            background: #f0f8ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 4px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .period-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .period-text {
+            font-size: 13px;
+            color: #333;
+        }
+        
+        /* Document Checklist Table */
+        .checklist-container {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            color: #555;
+            font-weight: bold;
+            border-bottom: 2px solid #d0d0d0;
+        }
+        
+        td {
+            padding: 12px;
+            font-size: 12px;
+            color: #333;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .status-pending { background: #2196F3; }
+        .status-uploaded { background: #FFC107; }
+        .status-approved { background: #4CAF50; }
+        .status-rejected { background: #F44336; }
+        
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .action-btn {
+            padding: 4px 10px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 11px;
+            color: #333;
+        }
+        
+        /* Detail Panel */
+        .detail-panel {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px;
+        }
+        
+        .detail-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .detail-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .detail-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .detail-field-label {
+            font-size: 11px;
+            color: #777;
+        }
+        
+        .detail-field-value {
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .comments-area {
+            margin-bottom: 20px;
+        }
+        
+        .comments-label {
+            font-size: 11px;
+            color: #777;
+            margin-bottom: 6px;
+        }
+        
+        .comments-box {
+            width: 100%;
+            height: 80px;
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 12px;
+            color: #555;
+        }
+        
+        .detail-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn-approve {
+            padding: 10px 20px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        .btn-reject {
+            padding: 10px 20px;
+            background: #F44336;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">LOGO PROGELA</div>
+            <div class="header-title">Portal de Proveedores REPSE</div>
+            <div class="header-user">
+                <span>Usuario: Fiscal/Compliance</span>
+                <div class="avatar"></div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <div class="sidebar-item">Dashboard</div>
+                <div class="sidebar-item">Proveedores</div>
+                <div class="sidebar-item">Contratos REPSE</div>
+                <div class="sidebar-item active">Expedientes</div>
+                <div class="sidebar-item">Periodos</div>
+                <div class="sidebar-item">Configuración</div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                Proveedores > Servicios Integrales SA > Expediente REPSE
+            </div>
+            
+            <!-- Provider Header -->
+            <div class="provider-header">
+                <div class="provider-name">Servicios Integrales SA de CV</div>
+                <div class="provider-info">
+                    <div class="info-item">
+                        <div class="info-label">RFC</div>
+                        <div class="info-value">SIS850101ABC</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Folio REPSE</div>
+                        <div class="info-value">REPSE-2024-001234</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Vigencia</div>
+                        <div class="info-value">15/03/2026</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Estado REPSE</div>
+                        <div class="status-chip status-active">Activo</div>
+                    </div>
+                </div>
+                <div class="contract-name">Contrato REPSE 001 – Servicios de mantenimiento</div>
+            </div>
+            
+            <!-- Two Column Layout -->
+            <div class="content-layout">
+                <!-- Left: Sections Menu -->
+                <div class="sections-menu">
+                    <div class="section-item">Alta / Homologación</div>
+                    <div class="section-item">Vigencia (Opiniones / REPSE)</div>
+                    <div class="section-item active">Mensual</div>
+                    <div class="section-item">Cuatrimestral</div>
+                </div>
+                
+                <!-- Right: Main Section -->
+                <div class="main-section">
+                    <!-- Filters Bar -->
+                    <div class="filters-bar">
+                        <div class="filter-group">
+                            <div class="filter-label">Periodo</div>
+                            <div class="filter-input">Enero 2025</div>
+                        </div>
+                        <div class="filter-group">
+                            <div class="filter-label">Contrato</div>
+                            <div class="filter-input">Contrato REPSE 001</div>
+                        </div>
+                        <div class="filter-group">
+                            <div class="filter-label">Tipo de documento</div>
+                            <div class="filter-input">Todos</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Period Summary -->
+                    <div class="period-summary">
+                        <div class="period-indicator" style="background: #4CAF50;"></div>
+                        <div class="period-text">
+                            <strong>Periodo Enero 2025</strong> – Estado: Aprobado
+                        </div>
+                    </div>
+                    
+                    <!-- Document Checklist Table -->
+                    <div class="checklist-container">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de documento</th>
+                                        <th>Etapa</th>
+                                        <th>Periodicidad</th>
+                                        <th>Obligatorio</th>
+                                        <th>Estatus</th>
+                                        <th>Fecha de carga</th>
+                                        <th>Usuario</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pago IMSS</td>
+                                        <td>Mensual</td>
+                                        <td>Mensual</td>
+                                        <td>Sí</td>
+                                        <td><span class="status-indicator status-approved"></span></td>
+                                        <td>05/02/2025</td>
+                                        <td>J. García</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn">Ver</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pago Infonavit</td>
+                                        <td>Mensual</td>
+                                        <td>Mensual</td>
+                                        <td>Sí</td>
+                                        <td><span class="status-indicator status-uploaded"></span></td>
+                                        <td>06/02/2025</td>
+                                        <td>J. García</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn">Ver</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Declaración ISR</td>
+                                        <td>Mensual</td>
+                                        <td>Mensual</td>
+                                        <td>Sí</td>
+                                        <td><span class="status-indicator status-pending"></span></td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn">Subir</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Declaración IVA</td>
+                                        <td>Mensual</td>
+                                        <td>Mensual</td>
+                                        <td>Sí</td>
+                                        <td><span class="status-indicator status-pending"></span></td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn">Subir</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Listado de trabajadores</td>
+                                        <td>Mensual</td>
+                                        <td>Mensual</td>
+                                        <td>Sí</td>
+                                        <td><span class="status-indicator status-rejected"></span></td>
+                                        <td>04/02/2025</td>
+                                        <td>M. López</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn">Ver</button>
+                                                <button class="action-btn">Reemplazar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CFDI de nómina</td>
+                                        <td>Mensual</td>
+                                        <td>Mensual</td>
+                                        <td>Sí</td>
+                                        <td><span class="status-indicator status-approved"></span></td>
+                                        <td>05/02/2025</td>
+                                        <td>J. García</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn">Ver</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Acuse de recibo SAT</td>
+                                        <td>Mensual</td>
+                                        <td>Mensual</td>
+                                        <td>No</td>
+                                        <td><span class="status-indicator status-uploaded"></span></td>
+                                        <td>07/02/2025</td>
+                                        <td>A. Martínez</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="action-btn">Ver</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Detail Panel -->
+                    <div class="detail-panel">
+                        <div class="detail-title">Detalle del documento</div>
+                        
+                        <div class="detail-fields">
+                            <div class="detail-field">
+                                <div class="detail-field-label">Tipo de documento</div>
+                                <div class="detail-field-value">Pago Infonavit</div>
+                            </div>
+                            <div class="detail-field">
+                                <div class="detail-field-label">Proveedor</div>
+                                <div class="detail-field-value">Servicios Integrales SA de CV</div>
+                            </div>
+                            <div class="detail-field">
+                                <div class="detail-field-label">Contrato</div>
+                                <div class="detail-field-value">Contrato REPSE 001 – Servicios de mantenimiento</div>
+                            </div>
+                            <div class="detail-field">
+                                <div class="detail-field-label">Periodo</div>
+                                <div class="detail-field-value">Enero 2025</div>
+                            </div>
+                            <div class="detail-field">
+                                <div class="detail-field-label">Fecha de carga</div>
+                                <div class="detail-field-value">06/02/2025 14:32</div>
+                            </div>
+                            <div class="detail-field">
+                                <div class="detail-field-label">Usuario que cargó</div>
+                                <div class="detail-field-value">J. García</div>
+                            </div>
+                            <div class="detail-field">
+                                <div class="detail-field-label">Estatus actual</div>
+                                <div class="detail-field-value">Cargado - Pendiente de validación</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comments-area">
+                            <div class="comments-label">Comentarios / Observaciones</div>
+                            <div class="comments-box">
+                                El documento está completo. Revisión pendiente de archivo PDF adjunto para verificar montos y vigencia del comprobante.
+                            </div>
+                        </div>
+                        
+                        <div class="detail-actions">
+                            <button class="btn-approve">Aprobar</button>
+                            <button class="btn-reject">Rechazar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

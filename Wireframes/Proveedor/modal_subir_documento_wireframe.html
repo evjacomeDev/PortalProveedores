@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Subir Documento Proveedor - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #ffffff;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Background content (blurred) */
+        .background-content {
+            width: 100%;
+            height: 100%;
+            padding: 24px;
+            filter: blur(3px);
+            opacity: 0.6;
+        }
+        
+        .bg-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .bg-table {
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 20px;
+            height: 400px;
+        }
+        
+        /* Modal Overlay */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        /* Modal */
+        .modal {
+            width: 700px;
+            max-height: 90vh;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Modal Header */
+        .modal-header {
+            background: #f0f0f0;
+            padding: 24px 32px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        
+        .document-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .info-row {
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+        }
+        
+        .info-label {
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .info-value {
+            color: #333;
+        }
+        
+        /* Modal Body */
+        .modal-body {
+            padding: 32px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .form-section {
+            margin-bottom: 32px;
+        }
+        
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 12px;
+        }
+        
+        /* File Upload Area */
+        .file-upload-area {
+            border: 3px dashed #999;
+            border-radius: 8px;
+            background: #fafafa;
+            padding: 48px 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .file-upload-area:hover {
+            border-color: #666;
+            background: #f5f5f5;
+        }
+        
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #999;
+        }
+        
+        .upload-text-primary {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .upload-text-secondary {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .upload-text-hint {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* Selected File Display */
+        .selected-file {
+            margin-top: 16px;
+            padding: 16px;
+            background: #E3F2FD;
+            border: 1px solid #90CAF9;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: #2196F3;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .file-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .file-name {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .file-size {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .file-remove {
+            padding: 8px 16px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .file-remove:hover {
+            background: #f5f5f5;
+        }
+        
+        /* Reviewer Comments */
+        .reviewer-comments {
+            background: #FFF3E0;
+            border: 1px solid #FFB74D;
+            border-left: 4px solid #FF9800;
+            border-radius: 4px;
+            padding: 16px 20px;
+        }
+        
+        .comments-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #E65100;
+            margin-bottom: 12px;
+        }
+        
+        .comments-text {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+        
+        /* Provider Comment Textarea */
+        .textarea-field {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px 16px;
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            font-family: Arial, sans-serif;
+            resize: vertical;
+        }
+        
+        .textarea-field:focus {
+            outline: none;
+            border-color: #999;
+            background: #fff;
+        }
+        
+        .char-count {
+            text-align: right;
+            font-size: 12px;
+            color: #999;
+            margin-top: 6px;
+        }
+        
+        /* Modal Footer */
+        .modal-footer {
+            background: #f8f8f8;
+            padding: 20px 32px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+        
+        .btn {
+            padding: 12px 32px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .btn-cancel {
+            background: #e0e0e0;
+            color: #555;
+            border: 1px solid #ccc;
+        }
+        
+        .btn-cancel:hover {
+            background: #d0d0d0;
+        }
+        
+        .btn-submit {
+            background: #4CAF50;
+            color: #fff;
+        }
+        
+        .btn-submit:hover {
+            background: #45a049;
+        }
+        
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Background Content (blurred) -->
+        <div class="background-content">
+            <div class="bg-title">Carga de documentos del periodo</div>
+            <div class="bg-table">
+                <div style="padding: 20px; color: #999;">
+                    Tabla de documentos del periodo...
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Overlay -->
+        <div class="modal-overlay">
+            <!-- Modal -->
+            <div class="modal">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <div class="modal-title">Subir documento</div>
+                    <div class="document-info">
+                        <div class="info-row">
+                            <span class="info-label">Documento:</span>
+                            <span class="info-value">Pago IMSS</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Periodo:</span>
+                            <span class="info-value">Enero 2025</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Contrato:</span>
+                            <span class="info-value">REPSE 001 - Servicios de mantenimiento</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <!-- File Upload Section -->
+                    <div class="form-section">
+                        <div class="section-label">Archivo del documento</div>
+                        <div class="file-upload-area">
+                            <div class="upload-icon">📄</div>
+                            <div class="upload-text-primary">Arrastra y suelta el archivo aquí</div>
+                            <div class="upload-text-secondary">o haz clic para seleccionar un archivo</div>
+                            <div class="upload-text-hint">Formatos permitidos: PDF, XML · Tamaño máximo: 10 MB</div>
+                        </div>
+                        
+                        <!-- Selected File (shown after file selection) -->
+                        <div class="selected-file" style="display: none;">
+                            <div class="file-info">
+                                <div class="file-icon">PDF</div>
+                                <div class="file-details">
+                                    <div class="file-name">Pago_IMSS_Enero_2025.pdf</div>
+                                    <div class="file-size">2.4 MB</div>
+                                </div>
+                            </div>
+                            <button class="file-remove">Eliminar</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Reviewer Comments Section (shown if document was rejected) -->
+                    <div class="form-section">
+                        <div class="section-label">Comentarios del revisor</div>
+                        <div class="reviewer-comments">
+                            <div class="comments-title">⚠️ Razones de rechazo</div>
+                            <div class="comments-text">El documento corresponde a un periodo distinto.
+Por favor, verifica el RFC y el periodo antes de volver a subir.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Provider Comment Section -->
+                    <div class="form-section">
+                        <div class="section-label">Comentario (opcional)</div>
+                        <textarea 
+                            class="textarea-field" 
+                            placeholder="Agrega cualquier comentario o aclaración sobre el documento..."
+                            maxlength="500"
+                        ></textarea>
+                        <div class="char-count">0 / 500 caracteres</div>
+                    </div>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button class="btn btn-cancel">Cancelar</button>
+                    <button class="btn btn-submit" disabled>Enviar documento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple interactions for demonstration
+        const uploadArea = document.querySelector('.file-upload-area');
+        const selectedFileDiv = document.querySelector('.selected-file');
+        const submitBtn = document.querySelector('.btn-submit');
+        const removeBtn = document.querySelector('.file-remove');
+        const textarea = document.querySelector('.textarea-field');
+        const charCount = document.querySelector('.char-count');
+        
+        // Simulate file selection
+        uploadArea.addEventListener('click', function() {
+            selectedFileDiv.style.display = 'flex';
+            submitBtn.disabled = false;
+            uploadArea.style.display = 'none';
+        });
+        
+        // Remove file
+        removeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            selectedFileDiv.style.display = 'none';
+            submitBtn.disabled = true;
+            uploadArea.style.display = 'block';
+        });
+        
+        // Character counter
+        textarea.addEventListener('input', function() {
+            const count = this.value.length;
+            charCount.textContent = `${count} / 500 caracteres`;
+        });
+    </script>
+</body>
+</html>

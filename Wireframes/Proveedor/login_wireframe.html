@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Proveedor REPSE - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .frame {
+            width: 1440px;
+            height: 900px;
+            background: #f0f0f0;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Login Card */
+        .login-card {
+            width: 450px;
+            background: #ffffff;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            padding: 48px 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header */
+        .login-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        .login-subtitle {
+            font-size: 16px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .form-input {
+            width: 100%;
+            height: 44px;
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 16px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #999;
+            background: #fff;
+        }
+        
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border: 2px solid #999;
+            border-radius: 3px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .checkbox-label {
+            font-size: 14px;
+            color: #555;
+            user-select: none;
+        }
+        
+        /* Button */
+        .btn-login {
+            width: 100%;
+            height: 48px;
+            background: #666;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .btn-login:hover {
+            background: #555;
+        }
+        
+        /* Forgot Password Link */
+        .forgot-password {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .forgot-password a {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+            color: #333;
+        }
+        
+        /* Footer */
+        .login-footer {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            padding-top: 24px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        /* Logo placeholder (top left corner) */
+        .logo-placeholder {
+            position: absolute;
+            top: 32px;
+            left: 32px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <!-- Logo Placeholder -->
+        <div class="logo-placeholder">LOGO PROGELA</div>
+        
+        <!-- Login Card -->
+        <div class="login-card">
+            <!-- Header -->
+            <div class="login-title">Portal de Proveedores REPSE</div>
+            <div class="login-subtitle">Acceso para proveedores</div>
+            
+            <!-- Form -->
+            <form>
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-input" placeholder="usuario@empresa.com">
+                </div>
+                
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+                
+                <!-- Remember Me Checkbox -->
+                <div class="checkbox-group">
+                    <div class="checkbox"></div>
+                    <label class="checkbox-label">Recordar sesión</label>
+                </div>
+                
+                <!-- Login Button -->
+                <button type="submit" class="btn-login">Iniciar sesión</button>
+                
+                <!-- Forgot Password -->
+                <div class="forgot-password">
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                </div>
+                
+                <!-- Footer -->
+                <div class="login-footer">
+                    Soporta navegadores: Chrome, Edge, Firefox
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
