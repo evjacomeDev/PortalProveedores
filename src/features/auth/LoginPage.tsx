@@ -35,7 +35,9 @@ export function LoginPage({ audience }: { audience: Audience }) {
 
   return (
     <div className="wf-login-frame">
-      <div className="wf-login-logo">LOGO PROGELA</div>
+      <div className="wf-login-logo">
+        <span className="text-[32px] font-black tracking-tighter" style={{ color: "var(--wf-primary)" }}>Prospectiva</span>
+      </div>
       <div className="wf-login-card">
         <h1 className="wf-login-title">Portal de Proveedores</h1>
         <p className="wf-login-subtitle">{title} — {audience === "proveedor" ? "Operación y expediente" : "Dashboard y gestión"} (demo)</p>

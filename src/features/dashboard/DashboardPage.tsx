@@ -1,4 +1,4 @@
-import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis, LineChart, Line } from "recharts";
 import { WireframePreview } from "../../components/common/WireframePreview";
 import { db } from "../../mock/db";
 
@@ -50,7 +50,7 @@ export function DashboardPage() {
             <PieChart>
               <Pie dataKey="value" data={supplierData} nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
                 {supplierData.map((_, i) => (
-                  <Cell key={i} fill={["#666666", "#999999", "#c8c8c8", "#333333"][i % 4]} />
+                  <Cell key={i} fill={["#10b981", "#f59e0b", "#ef4444", "#3b82f6"][i % 4]} />
                 ))}
               </Pie>
               <Tooltip />
@@ -63,12 +63,32 @@ export function DashboardPage() {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="state" tick={{ fontSize: 10 }} />
               <YAxis />
-              <Tooltip />
+              <Tooltip cursor={{ fill: "rgba(0,0,0,0.05)" }} />
               <Legend />
-              <Bar dataKey="total" fill="#666666" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="total" fill="#3b82f6" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
+      </div>
+
+      <div className="wf-chart-box mt-6" style={{ background: "white", padding: "1.5rem", borderRadius: "8px", border: "1px solid var(--wf-border)" }}>
+        <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "1rem", color: "#333" }}>Evolución del Score Promedio (Últimos 6 meses)</h3>
+        <ResponsiveContainer width="100%" height={260}>
+          <LineChart data={[
+            { month: "Oct", score: 72 },
+            { month: "Nov", score: 75 },
+            { month: "Dic", score: 74 },
+            { month: "Ene", score: 78 },
+            { month: "Feb", score: 81 },
+            { month: "Mar", score: 85 }
+          ]}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis domain={[60, 100]} />
+            <Tooltip />
+            <Line type="monotone" dataKey="score" stroke="#10b981" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
     </>
   );

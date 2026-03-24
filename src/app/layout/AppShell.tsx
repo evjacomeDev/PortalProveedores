@@ -66,7 +66,7 @@ export function AppShell() {
       <header className="wf-header shrink-0">
         <div className="flex items-center gap-6">
           <Link to="/" className="wf-header-logo no-underline">
-            LOGO PROGELA
+            <span className="text-xl font-black tracking-tighter" style={{ color: "var(--wf-primary)" }}>Prospectiva</span>
           </Link>
           <span className="wf-header-title hidden sm:inline">Portal Proveedores — {db.demoConfig.empresaNombre}</span>
         </div>
