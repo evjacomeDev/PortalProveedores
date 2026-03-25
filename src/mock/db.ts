@@ -50,6 +50,10 @@ export const db: {
     { id: "s5", name: "Consultores Epsilon", type: "Servicios", status: "Activo", createdAt: "2026-03-01", shortReview: true, detailedReview: false },
     { id: "s6", name: "Sistemas Zeta", type: "ME", status: "Activo", createdAt: "2025-12-10", shortReview: true, detailedReview: true },
     { id: "s7", name: "Mantenimiento Eta", type: "MP", status: "En revision", createdAt: "2026-02-28", shortReview: false, detailedReview: false },
+    { id: "s8", name: "Empaques Theta SA de CV", type: "MP", status: "Pre-registrado", createdAt: "2026-03-20", shortReview: false, detailedReview: false },
+    { id: "s9", name: "Tecnología Iota SC", type: "Servicios", status: "Pre-registrado", createdAt: "2026-03-22", shortReview: false, detailedReview: false },
+    { id: "s10", name: "Distribuidora Kappa", type: "ME", status: "En revision", createdAt: "2026-03-10", shortReview: true, detailedReview: false },
+    { id: "s11", name: "Transportes Lambda", type: "Servicios", status: "En revision", createdAt: "2026-03-15", shortReview: true, detailedReview: false },
   ],
   contracts: [
     { id: "c1", supplierId: "s1", society: "Sociedad MX", service: "Limpieza Corporativa", startDate: "2026-01-01", endDate: "2026-12-31", status: "Vigente" },
