@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import { db } from "../../mock/db";
-
-export function UsersPage() {
-  return (
-    <>
-      <h1 className="wf-page-title">Administración de usuarios y perfiles</h1>
-      <div className="wf-actions-bar">
-        <button type="button" className="wf-btn wf-btn-secondary">
-          Nuevo usuario interno
-        </button>
-      </div>
-=======
 import { useState } from "react";
 import { toast } from "sonner";
 import { getRoleLabel } from "../../app/roleMapping";
@@ -151,7 +138,6 @@ export function UsersPage() {
       </div>
 
       {/* Tabla */}
->>>>>>> cfdacd9 (Cierre de demo commit)
       <div className="wf-table-wrap">
         <div className="wf-table-scroll">
           <table className="wf-table">
@@ -160,38 +146,13 @@ export function UsersPage() {
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Rol</th>
-<<<<<<< HEAD
-                <th>Estatus</th>
-                <th>Proveedor</th>
-=======
                 <th>Áreas</th>
                 <th>Último acceso</th>
                 <th>Estatus</th>
->>>>>>> cfdacd9 (Cierre de demo commit)
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-<<<<<<< HEAD
-              {db.users.map((u) => (
-                <tr key={u.id}>
-                  <td>{u.name}</td>
-                  <td>{u.email}</td>
-                  <td>
-                    <span className="wf-chip wf-chip-validating">{u.role}</span>
-                  </td>
-                  <td>
-                    <span className={u.status === "Activo" ? "wf-chip wf-chip-active" : "wf-chip wf-chip-inactive"}>{u.status}</span>
-                  </td>
-                  <td>{u.supplierId ?? "—"}</td>
-                  <td>
-                    <button type="button" className="wf-action-btn">
-                      Editar
-                    </button>
-                  </td>
-                </tr>
-              ))}
-=======
               {filtered.map((u) => (
                 <tr key={u.id}>
                   <td className="font-medium">{u.name}</td>
@@ -238,13 +199,10 @@ export function UsersPage() {
                 <tr><td colSpan={7} className="text-center py-4 text-sm"
                   style={{ color: "var(--wf-text-muted)" }}>Sin usuarios con estos filtros</td></tr>
               )}
->>>>>>> cfdacd9 (Cierre de demo commit)
             </tbody>
           </table>
         </div>
       </div>
-<<<<<<< HEAD
-=======
 
       {/* Modal */}
       {modal.open && (
@@ -321,7 +279,6 @@ export function UsersPage() {
           </div>
         </div>
       )}
->>>>>>> cfdacd9 (Cierre de demo commit)
     </>
   );
 }

@@ -3,18 +3,6 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { createEvaluation, listEvaluations } from "../../mock/api";
 import { db } from "../../mock/db";
-<<<<<<< HEAD
-
-export function EvaluationCapturePage() {
-  const { proveedorId = "" } = useParams();
-  
-  const phaseA = useMemo(() => db.evaluationConfig.criteria.A.map((c) => `A:${c}`), []);
-  const phaseB = useMemo(() => db.evaluationConfig.criteria.B.map((c) => `B:${c}`), []);
-  const phaseC = useMemo(() => db.evaluationConfig.criteria.C.map((c) => `C:${c}`), []);
-  const allCriteria = useMemo(() => [...phaseA, ...phaseB, ...phaseC], [phaseA, phaseB, phaseC]);
-  
-  const [scores, setScores] = useState<Record<string, number>>(() => Object.fromEntries(allCriteria.map((c) => [c, 3])));
-=======
 import type { EvaluationCategory } from "../../mock/types";
 
 function scoreToCategory(score: number): EvaluationCategory {
@@ -46,7 +34,6 @@ export function EvaluationCapturePage() {
   const [scores, setScores] = useState<Record<string, number>>(() =>
     Object.fromEntries(allCriteria.map((c) => [c, 3]))
   );
->>>>>>> cfdacd9 (Cierre de demo commit)
   const [history, setHistory] = useState(db.evaluations.filter((e) => e.supplierId === proveedorId));
   const [step, setStep] = useState(1);
 
@@ -59,29 +46,6 @@ export function EvaluationCapturePage() {
 
   const renderStepContent = () => {
     if (step === 4) {
-<<<<<<< HEAD
-      const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
-      const maxScore = allCriteria.length * 5;
-      const finalScore = (totalScore / maxScore) * 100;
-      let semaforo = "wf-chip-active";
-      if (finalScore < 70) semaforo = "wf-chip-blocked";
-      else if (finalScore < 85) semaforo = "wf-chip-validating";
-      
-      return (
-        <div className="wf-card mb-6 items-center flex flex-col justify-center py-10">
-          <h2 className="mb-4 text-lg font-bold">Resumen de Evaluación Proyectado</h2>
-          <div className="text-5xl font-bold mb-4" style={{ color: "var(--wf-text)" }}>
-            {finalScore.toFixed(1)} <span className="text-xl font-normal text-[#999]">/ 100</span>
-          </div>
-          <div className="mb-8">
-            <span className={`wf-chip ${semaforo} text-sm px-4 py-1`}>
-              {finalScore >= 85 ? "Excelente" : finalScore >= 70 ? "Regular" : "Riesgo"}
-            </span>
-          </div>
-          <div className="flex gap-4">
-             <button type="button" className="wf-btn wf-btn-secondary" onClick={() => setStep(3)}>Atrás</button>
-             <button type="button" className="wf-btn wf-btn-primary" onClick={onSave}>Confirmar y Guardar Evaluación</button>
-=======
       const phaseResults = (["A", "B", "C"] as const).map((dim) => {
         const dimCriteria = cfg.criteria[dim].map((c) => `${dim}:${c}`);
         const sum = dimCriteria.reduce((acc, key) => acc + (scores[key] ?? 0), 0);
@@ -142,23 +106,18 @@ export function EvaluationCapturePage() {
           <div className="flex gap-4 justify-center">
             <button type="button" className="wf-btn wf-btn-secondary" onClick={() => setStep(3)}>Atrás</button>
             <button type="button" className="wf-btn wf-btn-primary" onClick={onSave}>Confirmar y Guardar Evaluación</button>
->>>>>>> cfdacd9 (Cierre de demo commit)
           </div>
         </div>
       );
     }
 
     const currentCriteria = step === 1 ? phaseA : step === 2 ? phaseB : phaseC;
-<<<<<<< HEAD
-    const stepTitle = step === 1 ? "Fase 1: Potencial" : step === 2 ? "Fase 2: Funcionamiento actual" : "Fase 3: Capacidad estratégica";
-=======
     const stepTitle =
       step === 1
         ? `Fase 1: ${phaseLabels.A}`
         : step === 2
           ? `Fase 2: ${phaseLabels.B}`
           : `Fase 3: ${phaseLabels.C}`;
->>>>>>> cfdacd9 (Cierre de demo commit)
 
     return (
       <div className="mb-6">
@@ -207,17 +166,6 @@ export function EvaluationCapturePage() {
   return (
     <>
       <div className="wf-breadcrumb">
-<<<<<<< HEAD
-        Evaluación / proveedor <strong>{proveedorId}</strong>
-      </div>
-      <h1 className="wf-page-title mb-2">Captura de evaluación</h1>
-      
-      <div className="flex gap-2 mb-6 text-sm flex-wrap">
-         <span className={step >= 1 ? "font-bold text-[#e63946]" : "text-[#999]"}>1. Potencial</span> <span className="text-[#999]">/</span>
-         <span className={step >= 2 ? "font-bold text-[#e63946]" : "text-[#999]"}>2. Funcionamiento</span> <span className="text-[#999]">/</span>
-         <span className={step >= 3 ? "font-bold text-[#e63946]" : "text-[#999]"}>3. Estrategia</span> <span className="text-[#999]">/</span>
-         <span className={step >= 4 ? "font-bold text-[#e63946]" : "text-[#999]"}>4. Resumen</span>
-=======
         Evaluación / <strong>{supplier?.name ?? proveedorId}</strong> / Captura
       </div>
       <h1 className="wf-page-title mb-2">Captura de evaluación</h1>
@@ -227,7 +175,6 @@ export function EvaluationCapturePage() {
         <span className={step >= 2 ? "font-bold text-[#e63946]" : "text-[#999]"}>2. {phaseLabels.B}</span> <span className="text-[#999]">/</span>
         <span className={step >= 3 ? "font-bold text-[#e63946]" : "text-[#999]"}>3. {phaseLabels.C}</span> <span className="text-[#999]">/</span>
         <span className={step >= 4 ? "font-bold text-[#e63946]" : "text-[#999]"}>4. Resumen</span>
->>>>>>> cfdacd9 (Cierre de demo commit)
       </div>
 
       {renderStepContent()}
@@ -249,11 +196,7 @@ export function EvaluationCapturePage() {
                   <td>{new Date(h.createdAt).toLocaleString()}</td>
                   <td>{h.finalScore.toFixed(1)}</td>
                   <td>
-<<<<<<< HEAD
-                    <span className="wf-chip wf-chip-active">{h.category}</span>
-=======
                     <span className={`wf-chip ${categoryChip(h.category)}`}>{h.category}</span>
->>>>>>> cfdacd9 (Cierre de demo commit)
                   </td>
                 </tr>
               ))}

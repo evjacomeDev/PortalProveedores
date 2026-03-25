@@ -1,9 +1,5 @@
 import { db } from "./db";
-<<<<<<< HEAD
-import type { Contract, EvaluationVersion, Role, Supplier, User } from "./types";
-=======
 import type { Area, Contract, DocumentCatalogItem, DocumentSection, EvaluationCategory, EvaluationPhase, EvaluationVersion, Role, Supplier, User } from "./types";
->>>>>>> cfdacd9 (Cierre de demo commit)
 
 const delay = () => new Promise((r) => setTimeout(r, 400 + Math.random() * 500));
 const id = (prefix: string) => `${prefix}_${Math.random().toString(36).slice(2, 8)}`;
@@ -131,38 +127,6 @@ export async function rejectDoc(documentId: string, reason: string) {
   audit("doc_reject", `Documento rechazado ${doc.documentType}`);
 }
 
-<<<<<<< HEAD
-export async function createEvaluation(supplierId: string, scores: Record<string, number>) {
-  await delay();
-  const grouped = { A: 0, B: 0, C: 0 };
-  Object.entries(scores).forEach(([key, value]) => {
-    const dim = key.split(":")[0] as "A" | "B" | "C";
-    grouped[dim] += value;
-  });
-  const percentages = {
-    A: Math.min(100, (grouped.A / (db.evaluationConfig.criteria.A.length * 5)) * 100),
-    B: Math.min(100, (grouped.B / (db.evaluationConfig.criteria.B.length * 5)) * 100),
-    C: Math.min(100, (grouped.C / (db.evaluationConfig.criteria.C.length * 5)) * 100),
-  };
-  const finalScore =
-    percentages.A * db.evaluationConfig.weights.A +
-    percentages.B * db.evaluationConfig.weights.B +
-    percentages.C * db.evaluationConfig.weights.C;
-  const category = finalScore >= 80 ? "APTO" : finalScore >= 60 ? "EN DESARROLLO" : "NO APTO";
-  const version: EvaluationVersion = {
-    id: id("eval"),
-    supplierId,
-    createdAt: new Date().toISOString(),
-    scores,
-    finalScore,
-    category,
-  };
-  db.evaluations.unshift(version);
-  audit("evaluation", `Evaluacion ${supplierId}: ${finalScore.toFixed(1)} (${category})`);
-  return version;
-}
-
-=======
 function scoreToCategory(score: number): EvaluationCategory {
   if (score >= 85) return "EXCELENTE";
   if (score >= 70) return "CONFIABLE";
@@ -252,14 +216,11 @@ export async function toggleUserStatus(userId: string) {
   return user;
 }
 
->>>>>>> cfdacd9 (Cierre de demo commit)
 export async function listEvaluations(supplierId: string) {
   await delay();
   return db.evaluations.filter((e) => e.supplierId === supplierId);
 }
 
-<<<<<<< HEAD
-=======
 export async function listCatalogItems(section?: DocumentSection) {
   await delay();
   return section
@@ -383,7 +344,6 @@ export function exportEvaluationHistoryCSV() {
   exportCSV(rows, "historial_evaluaciones.csv");
 }
 
->>>>>>> cfdacd9 (Cierre de demo commit)
 export function exportCSV(rows: Record<string, unknown>[], fileName: string) {
   if (!rows.length) return;
   const headers = Object.keys(rows[0]);
@@ -395,3 +355,6 @@ export function exportCSV(rows: Record<string, unknown>[], fileName: string) {
   link.setAttribute("download", fileName);
   link.click();
 }
+
+// Suppress unused import warnings for Area
+export type { Area };

@@ -20,8 +20,6 @@ export function getBusinessRole(role: Role): BusinessRole {
       return "CONSULTA";
   }
 }
-<<<<<<< HEAD
-=======
 
 export function getRoleLabel(role: Role): string {
   const labels: Record<Role, string> = {
@@ -48,4 +46,3 @@ export function getBusinessRoleLabel(role: Role): string {
   };
   return labels[br];
 }
->>>>>>> cfdacd9 (Cierre de demo commit)

@@ -1,10 +1,7 @@
 import { Link, NavLink, Outlet, useLocation, Navigate } from "react-router-dom";
 import type { Role } from "../../mock/types";
 import { useAuthStore } from "../../features/auth/store";
-<<<<<<< HEAD
-=======
 import { getRoleLabel } from "../roleMapping";
->>>>>>> cfdacd9 (Cierre de demo commit)
 import { db } from "../../mock/db";
 
 type NavKey =
@@ -90,8 +87,6 @@ export function AppShell() {
 
       <div className="flex min-h-0 flex-1">
         <aside className="wf-sidebar shrink-0">
-<<<<<<< HEAD
-=======
           <div className="p-3 border-b" style={{ borderColor: "var(--wf-border)" }}>
             <p className="text-sm font-bold truncate">{user?.name}</p>
             <span className="wf-chip wf-chip-validating text-xs mt-1 inline-block">
@@ -108,7 +103,6 @@ export function AppShell() {
               </div>
             )}
           </div>
->>>>>>> cfdacd9 (Cierre de demo commit)
           <nav className="wf-sidebar-nav">
             {items.map((n) => (
               <NavLink

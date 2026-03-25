@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-=======
 import { toast } from "sonner";
 import { exportEvaluationDetailCSV, exportRankingCSV } from "../../mock/api";
->>>>>>> cfdacd9 (Cierre de demo commit)
 import { db } from "../../mock/db";
 
 function latestScore(supplierId: string) {
@@ -27,8 +24,6 @@ export function RankingPage() {
     .map((s) => ({ s, ev: latestScore(s.id) }))
     .sort((a, b) => (b.ev?.finalScore ?? -1) - (a.ev?.finalScore ?? -1));
 
-<<<<<<< HEAD
-=======
   // KPIs
   const evaluatedIds = new Set(db.evaluations.map((e) => e.supplierId));
   const evaluadosCount = evaluatedIds.size;
@@ -42,15 +37,12 @@ export function RankingPage() {
     : 0;
   const enRiesgo = latestBySupplier.filter((ev) => ev!.finalScore < 70).length;
 
->>>>>>> cfdacd9 (Cierre de demo commit)
   return (
     <>
       <div className="wf-breadcrumb">
         Inicio / <strong>Ranking de proveedores</strong>
       </div>
       <h1 className="wf-page-title">Ranking por desempeño</h1>
-<<<<<<< HEAD
-=======
 
       {/* KPI cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
@@ -68,7 +60,6 @@ export function RankingPage() {
         </div>
       </div>
 
->>>>>>> cfdacd9 (Cierre de demo commit)
       <div className="flex justify-between items-start mb-6 flex-wrap gap-4">
         <div>
           <p className="text-sm" style={{ color: "var(--wf-text-muted)" }}>
@@ -88,27 +79,19 @@ export function RankingPage() {
           </div>
         </div>
         <div className="flex gap-2">
-<<<<<<< HEAD
-           <button type="button" className="wf-btn wf-btn-outline text-sm">Exportar (Excel)</button>
-           <button type="button" className="wf-btn wf-btn-outline text-sm">Reporte Power BI</button>
-        </div>
-      </div>
-      
-=======
           <button type="button" className="wf-btn wf-btn-outline text-sm" onClick={exportRankingCSV}>
             Exportar (CSV / Excel)
           </button>
           <button
             type="button"
             className="wf-btn wf-btn-outline text-sm"
-            onClick={() => { exportRankingCSV(); toast.success("CSV listo para importar en Power BI Desktop"); }}
+            onClick={() => { exportEvaluationDetailCSV(); toast.success("CSV listo para importar en Power BI Desktop"); }}
           >
             Power BI
           </button>
         </div>
       </div>
 
->>>>>>> cfdacd9 (Cierre de demo commit)
       <div className="wf-table-wrap">
         <div className="wf-table-scroll">
           <table className="wf-table">
@@ -119,10 +102,7 @@ export function RankingPage() {
                 <th>Categoría tipo</th>
                 <th>Score</th>
                 <th>Clasificación</th>
-<<<<<<< HEAD
-=======
                 <th>Próxima eval.</th>
->>>>>>> cfdacd9 (Cierre de demo commit)
                 <th />
               </tr>
             </thead>
@@ -134,10 +114,7 @@ export function RankingPage() {
                   <td>{s.type}</td>
                   <td>{getScoreBadge(ev?.finalScore)}</td>
                   <td>{ev?.category ?? "—"}</td>
-<<<<<<< HEAD
-=======
                   <td>{ev?.nextReviewDate ?? "—"}</td>
->>>>>>> cfdacd9 (Cierre de demo commit)
                   <td>
                     <Link className="wf-action-btn no-underline" to={`/app/proveedores/${s.id}`}>
                       Ver Ficha

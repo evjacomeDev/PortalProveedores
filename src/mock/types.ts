@@ -3,26 +3,18 @@ export type Role = "AG" | "CO" | "CA" | "ID" | "FI" | "CS" | "PA" | "PU";
 /** Rol de negocio demo (menú y permisos de alto nivel). */
 export type BusinessRole = "ADMIN_GLOBAL" | "ADMIN_AREA" | "EVALUADOR" | "CONSULTA" | "PROVEEDOR";
 
-<<<<<<< HEAD
-=======
 export const AREA_OPTIONS = ["Compras", "Calidad", "I+D", "Finanzas", "Administración"] as const;
 export type Area = typeof AREA_OPTIONS[number];
 
->>>>>>> cfdacd9 (Cierre de demo commit)
 export type User = {
   id: string;
   name: string;
   email: string;
   role: Role;
-<<<<<<< HEAD
-  status: "Activo" | "Inactivo";
-  supplierId?: string;
-=======
   areas: Area[];
   status: "Activo" | "Inactivo";
   supplierId?: string;
   lastLogin?: string;
->>>>>>> cfdacd9 (Cierre de demo commit)
 };
 
 export type SupplierStatus = "Pre-registrado" | "Activo" | "En revision" | "En riesgo" | "Bloqueado" | "Inactivo";
@@ -58,8 +50,6 @@ export type Period = {
 
 export type DocumentStatus = "Pendiente" | "Cargado" | "En revision" | "Aprobado" | "Rechazado";
 
-<<<<<<< HEAD
-=======
 export type DocumentSection =
   | "Alta"
   | "Vigencia"
@@ -79,26 +69,12 @@ export type DocumentCatalogItem = {
   description?: string;
 };
 
->>>>>>> cfdacd9 (Cierre de demo commit)
 export type RepseDocument = {
   id: string;
   periodId: string;
   contractId: string;
   supplierId: string;
   documentType: string;
-<<<<<<< HEAD
-  section: "Alta" | "Vigencia" | "Mensual" | "Cuatrimestral" | "Documentos de la Empresa" | "Documentos Técnicos";
-  status: DocumentStatus;
-  fileName?: string;
-  validatorComment?: string;
-};
-
-export type EvaluationConfig = {
-  weights: { A: number; B: number; C: number };
-  criteria: Record<"A" | "B" | "C", string[]>;
-};
-
-=======
   catalogItemId?: string;
   section: DocumentSection;
   status: DocumentStatus;
@@ -123,19 +99,14 @@ export type EvaluationCategory =
   | "EN DESARROLLO"
   | "RIESGO ALTO";
 
->>>>>>> cfdacd9 (Cierre de demo commit)
 export type EvaluationVersion = {
   id: string;
   supplierId: string;
   createdAt: string;
   scores: Record<string, number>;
   finalScore: number;
-<<<<<<< HEAD
-  category: "APTO" | "EN DESARROLLO" | "NO APTO" | "CONFIABLE" | "REGULAR" | "RIESGO ALTO" | "EXCELENTE";
-=======
   category: EvaluationCategory;
   nextReviewDate: string;
->>>>>>> cfdacd9 (Cierre de demo commit)
 };
 
 export type AuditEvent = {

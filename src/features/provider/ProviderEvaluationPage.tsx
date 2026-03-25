@@ -1,13 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../auth/store";
 import { db } from "../../mock/db";
-<<<<<<< HEAD
-
-function semaforo(score: number) {
-  if (score >= 80) return { label: "Favorable", className: "wf-chip wf-chip-active" };
-  if (score >= 60) return { label: "Atención", className: "wf-chip wf-chip-validating" };
-  return { label: "Crítico", className: "wf-chip wf-chip-blocked" };
-=======
 import type { EvaluationCategory } from "../../mock/types";
 
 function categoryChip(cat: EvaluationCategory) {
@@ -21,18 +14,11 @@ function scoreColor(score: number) {
   if (score >= 70) return "#16a34a";
   if (score >= 50) return "#d97706";
   return "#dc2626";
->>>>>>> cfdacd9 (Cierre de demo commit)
 }
 
 export function ProviderEvaluationPage() {
   const user = useAuthStore((s) => s.user);
   const sid = user?.supplierId ?? "";
-<<<<<<< HEAD
-  const latest = db.evaluations
-    .filter((e) => e.supplierId === sid)
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
-  const sm = latest ? semaforo(latest.finalScore) : null;
-=======
   const allEvals = db.evaluations
     .filter((e) => e.supplierId === sid)
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -47,7 +33,6 @@ export function ProviderEvaluationPage() {
         return { dim, label: cfg.phaseLabels[dim], pct, weight: cfg.weights[dim], criteria: cfg.criteria[dim] };
       })
     : [];
->>>>>>> cfdacd9 (Cierre de demo commit)
 
   return (
     <>
@@ -58,27 +43,6 @@ export function ProviderEvaluationPage() {
         / <strong>Mi evaluación</strong>
       </div>
       <h1 className="wf-page-title">Mi evaluación de desempeño</h1>
-<<<<<<< HEAD
-      <p className="mb-6 text-sm" style={{ color: "var(--wf-text-muted)" }}>
-        Score consolidado 0–100 y semáforo (FR-43, FR-44). Histórico y detalle por fases en la siguiente vista.
-      </p>
-
-      {latest ? (
-        <div className="wf-card mb-6 max-w-xl">
-          <div className="mb-2 text-sm" style={{ color: "var(--wf-text-muted)" }}>
-            Evaluación más reciente
-          </div>
-          <div className="flex flex-wrap items-end gap-4">
-            <div className="text-4xl font-bold">{latest.finalScore.toFixed(1)}</div>
-            <span className={sm?.className}>{sm?.label}</span>
-          </div>
-          <p className="mt-2 text-sm">Categoría: {latest.category}</p>
-        </div>
-      ) : (
-        <p className="mb-6 text-sm" style={{ color: "var(--wf-text-muted)" }}>
-          Aún no hay evaluación registrada en la demo.
-        </p>
-=======
 
       {latest ? (
         <>
@@ -164,7 +128,6 @@ export function ProviderEvaluationPage() {
             Serás notificado cuando esté disponible.
           </p>
         </div>
->>>>>>> cfdacd9 (Cierre de demo commit)
       )}
 
       <Link className="wf-btn wf-btn-primary no-underline" to="/proveedor/evaluacion/detalle">
