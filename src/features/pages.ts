@@ -18,6 +18,7 @@ export { ExpedientePage } from "./expediente/ExpedientePage";
 export { ValidationPage } from "./validation/ValidationPage";
 export { EvaluationConfigPage } from "./evaluation/EvaluationConfigPage";
 export { EvaluationCapturePage } from "./evaluation/EvaluationCapturePage";
+export { EvaluationBulkPage } from "./evaluation/EvaluationBulkPage";
 export { CatalogsPage } from "./catalogs/CatalogsPage";
 export { UsersPage } from "./users/UsersPage";
 export { ReportsPage } from "./reports/ReportsPage";

@@ -13,6 +13,7 @@ import {
   CatalogsPage,
   ContractsPage,
   DashboardPage,
+  EvaluationBulkPage,
   EvaluationCapturePage,
   EvaluationConfigPage,
   ExpedientePage,
@@ -101,6 +102,7 @@ export const router = createBrowserRouter([
             children: [
               { path: "validacion", element: <ValidationPage /> },
               { path: "evaluacion", element: <EvaluationConfigPage /> },
+              { path: "evaluacion/carga-masiva", element: <EvaluationBulkPage /> },
               { path: "evaluacion/:proveedorId", element: <EvaluationCapturePage /> },
               { path: "ranking", element: <RankingPage /> },
               { path: "planes-mejora", element: <InternalPlanesMejoraPage /> },

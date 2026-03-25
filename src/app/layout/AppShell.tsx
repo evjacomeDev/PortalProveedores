@@ -9,6 +9,7 @@ type NavKey =
   | "proveedores"
   | "validacion"
   | "evaluacion"
+  | "evaluacion-masiva"
   | "ranking"
   | "planes"
   | "reportes"
@@ -24,6 +25,7 @@ function showInternalNav(role: Role | undefined, key: NavKey): boolean {
       return true;
     case "validacion":
     case "evaluacion":
+    case "evaluacion-masiva":
     case "ranking":
     case "planes":
       return role !== "CS";
@@ -43,6 +45,7 @@ const navDef: { key: NavKey; label: string; to: string; end?: boolean }[] = [
   { key: "proveedores", label: "Proveedores", to: "/app/proveedores" },
   { key: "validacion", label: "Validación", to: "/app/validacion" },
   { key: "evaluacion", label: "Evaluación", to: "/app/evaluacion" },
+  { key: "evaluacion-masiva", label: "↑ Carga masiva eval.", to: "/app/evaluacion/carga-masiva" },
   { key: "ranking", label: "Ranking", to: "/app/ranking" },
   { key: "planes", label: "Planes de mejora", to: "/app/planes-mejora" },
   { key: "reportes", label: "Reportes", to: "/app/reportes" },

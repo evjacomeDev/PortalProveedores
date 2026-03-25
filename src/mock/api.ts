@@ -173,6 +173,77 @@ export async function createEvaluation(supplierId: string, scores: Record<string
   return version;
 }
 
+export type BulkEvaluationRow = {
+  supplierId: string;
+  supplierName: string;
+  scores: Record<string, number>;
+  errors: string[];
+};
+
+export type BulkImportResult = {
+  imported: number;
+  skipped: number;
+  rows: Array<BulkEvaluationRow & { finalScore?: number; category?: string }>;
+};
+
+export async function bulkImportEvaluations(
+  rows: BulkEvaluationRow[]
+): Promise<BulkImportResult> {
+  await delay();
+  const cfg = db.evaluationConfig;
+  const expectedKeys = [
+    ...cfg.criteria.A.map((c) => `A:${c}`),
+    ...cfg.criteria.B.map((c) => `B:${c}`),
+    ...cfg.criteria.C.map((c) => `C:${c}`),
+  ];
+
+  let imported = 0;
+  let skipped = 0;
+  const results: BulkImportResult["rows"] = [];
+
+  for (const row of rows) {
+    if (row.errors.length > 0) {
+      skipped++;
+      results.push(row);
+      continue;
+    }
+
+    const grouped = { A: 0, B: 0, C: 0 } as Record<EvaluationPhase, number>;
+    expectedKeys.forEach((key) => {
+      const dim = key.split(":")[0] as EvaluationPhase;
+      grouped[dim] += row.scores[key] ?? 0;
+    });
+    const percentages = {
+      A: Math.min(100, (grouped.A / (cfg.criteria.A.length * 5)) * 100),
+      B: Math.min(100, (grouped.B / (cfg.criteria.B.length * 5)) * 100),
+      C: Math.min(100, (grouped.C / (cfg.criteria.C.length * 5)) * 100),
+    };
+    const finalScore =
+      percentages.A * cfg.weights.A +
+      percentages.B * cfg.weights.B +
+      percentages.C * cfg.weights.C;
+    const createdAt = new Date().toISOString();
+    const version: EvaluationVersion = {
+      id: id("eval"),
+      supplierId: row.supplierId,
+      createdAt,
+      scores: row.scores,
+      finalScore,
+      category: scoreToCategory(finalScore),
+      nextReviewDate: nextReviewDateFrom(createdAt, finalScore),
+    };
+    db.evaluations.unshift(version);
+    audit(
+      "evaluation_bulk",
+      `[Masiva] ${row.supplierName}: ${finalScore.toFixed(1)} (${version.category})`
+    );
+    imported++;
+    results.push({ ...row, finalScore, category: version.category });
+  }
+
+  return { imported, skipped, rows: results };
+}
+
 export async function createUser(
   payload: Omit<User, "id" | "lastLogin"> & { password?: string }
 ) {
