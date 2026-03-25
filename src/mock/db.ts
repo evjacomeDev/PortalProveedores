@@ -102,6 +102,51 @@ export const db: {
     { id: "d_tec_s2_lic", periodId: "p3", contractId: "c2", supplierId: "s2", documentType: "Licencias aplicables", catalogItemId: "dc11", section: "Tecnico", status: "Rechazado", fileName: "licencias_s2.pdf", validatorComment: "Licencia vencida, favor de actualizar", uploadedAt: "2026-01-15", expiryDate: "2026-01-15" },
     { id: "d_emp_s3_poder", periodId: "p4", contractId: "c3", supplierId: "s3", documentType: "Poder notarial del representante legal", catalogItemId: "dc05", section: "Empresa", status: "Pendiente" },
     { id: "d_tec_s5_cert", periodId: "p6", contractId: "c5", supplierId: "s5", documentType: "Certificaciones de calidad (FSSC 22000 / BPM / ISO / HACCP)", catalogItemId: "dc10", section: "Tecnico", status: "Aprobado", fileName: "haccp_s5.pdf", uploadedAt: "2025-12-01", expiryDate: "2026-12-01" },
+
+    // ── REPSE Vigencia — s1 Servicios Alpha ──────────────────────────────────
+    { id: "rv_s1_const", periodId: "p1", contractId: "c1", supplierId: "s1", documentType: "Constancia de inscripción REPSE", catalogItemId: "dcV01", section: "Vigencia", status: "Aprobado", fileName: "constancia_repse_s1.pdf", uploadedAt: "2026-01-15", expiryDate: "2027-01-15" },
+    { id: "rv_s1_ced",   periodId: "p1", contractId: "c1", supplierId: "s1", documentType: "Cédula de determinación REPSE", catalogItemId: "dcV02", section: "Vigencia", status: "Cargado",  fileName: "cedula_repse_s1.pdf", uploadedAt: "2026-02-10" },
+
+    // ── REPSE Mensual 2026-02 — s1 ────────────────────────────────────────────
+    { id: "rm_s1_p1_cfdi_xml", periodId: "p1", contractId: "c1", supplierId: "s1", documentType: "CFDI Nómina (XML)", catalogItemId: "dcM01", section: "Mensual", status: "Cargado",     fileName: "nomina_s1_202602.xml", uploadedAt: "2026-03-05" },
+    { id: "rm_s1_p1_cfdi_pdf", periodId: "p1", contractId: "c1", supplierId: "s1", documentType: "CFDI Nómina (PDF)",  catalogItemId: "dcM02", section: "Mensual", status: "En revision", fileName: "nomina_s1_202602.pdf", uploadedAt: "2026-03-05" },
+    { id: "rm_s1_p1_sua",      periodId: "p1", contractId: "c1", supplierId: "s1", documentType: "Comprobante pago IMSS (SUA)",  catalogItemId: "dcM03", section: "Mensual", status: "En revision", fileName: "sua_s1_202602.pdf", uploadedAt: "2026-03-05" },
+    { id: "rm_s1_p1_info",     periodId: "p1", contractId: "c1", supplierId: "s1", documentType: "Comprobante pago INFONAVIT",   catalogItemId: "dcM04", section: "Mensual", status: "Pendiente" },
+    { id: "rm_s1_p1_isr",      periodId: "p1", contractId: "c1", supplierId: "s1", documentType: "Declaración mensual ISR / IVA", catalogItemId: "dcM05", section: "Mensual", status: "Pendiente" },
+
+    // ── REPSE Mensual 2026-03 — s1 (abierto) ─────────────────────────────────
+    { id: "rm_s1_p2_cfdi_xml", periodId: "p2", contractId: "c1", supplierId: "s1", documentType: "CFDI Nómina (XML)", catalogItemId: "dcM01", section: "Mensual", status: "Pendiente" },
+    { id: "rm_s1_p2_cfdi_pdf", periodId: "p2", contractId: "c1", supplierId: "s1", documentType: "CFDI Nómina (PDF)", catalogItemId: "dcM02", section: "Mensual", status: "Pendiente" },
+    { id: "rm_s1_p2_sua",      periodId: "p2", contractId: "c1", supplierId: "s1", documentType: "Comprobante pago IMSS (SUA)",  catalogItemId: "dcM03", section: "Mensual", status: "Pendiente" },
+    { id: "rm_s1_p2_info",     periodId: "p2", contractId: "c1", supplierId: "s1", documentType: "Comprobante pago INFONAVIT",   catalogItemId: "dcM04", section: "Mensual", status: "Pendiente" },
+
+    // ── REPSE Vigencia — s5 Consultores Epsilon ───────────────────────────────
+    { id: "rv_s5_const", periodId: "p6", contractId: "c5", supplierId: "s5", documentType: "Constancia de inscripción REPSE", catalogItemId: "dcV01", section: "Vigencia", status: "Cargado",  fileName: "constancia_repse_s5.pdf", uploadedAt: "2026-03-10" },
+    { id: "rv_s5_ced",   periodId: "p6", contractId: "c5", supplierId: "s5", documentType: "Cédula de determinación REPSE",   catalogItemId: "dcV02", section: "Vigencia", status: "Pendiente" },
+
+    // ── REPSE Mensual 2026-03 — s5 ────────────────────────────────────────────
+    { id: "rm_s5_p6_cfdi_xml", periodId: "p6", contractId: "c5", supplierId: "s5", documentType: "CFDI Nómina (XML)", catalogItemId: "dcM01", section: "Mensual", status: "Pendiente" },
+    { id: "rm_s5_p6_cfdi_pdf", periodId: "p6", contractId: "c5", supplierId: "s5", documentType: "CFDI Nómina (PDF)", catalogItemId: "dcM02", section: "Mensual", status: "Pendiente" },
+    { id: "rm_s5_p6_sua",      periodId: "p6", contractId: "c5", supplierId: "s5", documentType: "Comprobante pago IMSS (SUA)",  catalogItemId: "dcM03", section: "Mensual", status: "Pendiente" },
+    { id: "rm_s5_p6_isr",      periodId: "p6", contractId: "c5", supplierId: "s5", documentType: "Declaración mensual ISR / IVA", catalogItemId: "dcM05", section: "Mensual", status: "Pendiente" },
+
+    // ── REPSE Vigencia — s6 Sistemas Zeta ─────────────────────────────────────
+    { id: "rv_s6_const", periodId: "p8", contractId: "c6", supplierId: "s6", documentType: "Constancia de inscripción REPSE", catalogItemId: "dcV01", section: "Vigencia", status: "Aprobado", fileName: "constancia_repse_s6.pdf", uploadedAt: "2025-12-20", expiryDate: "2026-12-20" },
+    { id: "rv_s6_ced",   periodId: "p8", contractId: "c6", supplierId: "s6", documentType: "Cédula de determinación REPSE",   catalogItemId: "dcV02", section: "Vigencia", status: "Aprobado", fileName: "cedula_repse_s6.pdf",   uploadedAt: "2025-12-20", expiryDate: "2026-12-20" },
+
+    // ── REPSE Mensual 2026-02 (aprobado) — s6 ────────────────────────────────
+    { id: "rm_s6_p7_cfdi_xml", periodId: "p7", contractId: "c6", supplierId: "s6", documentType: "CFDI Nómina (XML)", catalogItemId: "dcM01", section: "Mensual", status: "Aprobado", fileName: "nomina_s6_202602.xml", uploadedAt: "2026-03-02" },
+    { id: "rm_s6_p7_cfdi_pdf", periodId: "p7", contractId: "c6", supplierId: "s6", documentType: "CFDI Nómina (PDF)", catalogItemId: "dcM02", section: "Mensual", status: "Aprobado", fileName: "nomina_s6_202602.pdf", uploadedAt: "2026-03-02" },
+    { id: "rm_s6_p7_sua",      periodId: "p7", contractId: "c6", supplierId: "s6", documentType: "Comprobante pago IMSS (SUA)",   catalogItemId: "dcM03", section: "Mensual", status: "Aprobado", fileName: "sua_s6_202602.pdf",   uploadedAt: "2026-03-02" },
+    { id: "rm_s6_p7_info",     periodId: "p7", contractId: "c6", supplierId: "s6", documentType: "Comprobante pago INFONAVIT",    catalogItemId: "dcM04", section: "Mensual", status: "Aprobado", fileName: "infonavit_s6_202602.pdf", uploadedAt: "2026-03-02" },
+    { id: "rm_s6_p7_isr",      periodId: "p7", contractId: "c6", supplierId: "s6", documentType: "Declaración mensual ISR / IVA", catalogItemId: "dcM05", section: "Mensual", status: "Aprobado", fileName: "isr_s6_202602.pdf",   uploadedAt: "2026-03-02" },
+
+    // ── REPSE Mensual 2026-03 (en captura) — s6 ───────────────────────────────
+    { id: "rm_s6_p8_cfdi_xml", periodId: "p8", contractId: "c6", supplierId: "s6", documentType: "CFDI Nómina (XML)", catalogItemId: "dcM01", section: "Mensual", status: "Cargado",     fileName: "nomina_s6_202603.xml", uploadedAt: "2026-04-02" },
+    { id: "rm_s6_p8_cfdi_pdf", periodId: "p8", contractId: "c6", supplierId: "s6", documentType: "CFDI Nómina (PDF)", catalogItemId: "dcM02", section: "Mensual", status: "En revision", fileName: "nomina_s6_202603.pdf", uploadedAt: "2026-04-02" },
+    { id: "rm_s6_p8_sua",      periodId: "p8", contractId: "c6", supplierId: "s6", documentType: "Comprobante pago IMSS (SUA)",   catalogItemId: "dcM03", section: "Mensual", status: "En revision", fileName: "sua_s6_202603.pdf",   uploadedAt: "2026-04-02" },
+    { id: "rm_s6_p8_info",     periodId: "p8", contractId: "c6", supplierId: "s6", documentType: "Comprobante pago INFONAVIT",    catalogItemId: "dcM04", section: "Mensual", status: "Pendiente" },
+    { id: "rm_s6_p8_isr",      periodId: "p8", contractId: "c6", supplierId: "s6", documentType: "Declaración mensual ISR / IVA", catalogItemId: "dcM05", section: "Mensual", status: "Pendiente" },
   ],
   evaluations: [
     {
@@ -237,5 +282,14 @@ export const db: {
     { id: "dc11", name: "Licencias aplicables", section: "Tecnico", mandatory: false, validityDays: 365, allowedFormats: ["PDF"], visibleToProvider: true },
     { id: "dc12", name: "Fichas técnicas de productos / servicios", section: "Tecnico", mandatory: false, validityDays: 0, allowedFormats: ["PDF", "DOCX", "XLSX"], visibleToProvider: true },
     { id: "dc13", name: "Requisitos del sistema de gestión de calidad", section: "Tecnico", mandatory: false, validityDays: 0, allowedFormats: ["PDF", "DOCX"], visibleToProvider: false, description: "Solo visible internamente" },
+    // ── REPSE — Vigencia ──────────────────────────────────────────────────────
+    { id: "dcV01", name: "Constancia de inscripción REPSE", section: "Vigencia", mandatory: true, validityDays: 365, allowedFormats: ["PDF"], visibleToProvider: true, description: "Vigencia anual; renovar antes del vencimiento" },
+    { id: "dcV02", name: "Cédula de determinación REPSE", section: "Vigencia", mandatory: true, validityDays: 365, allowedFormats: ["PDF"], visibleToProvider: true },
+    // ── REPSE — Mensual ───────────────────────────────────────────────────────
+    { id: "dcM01", name: "CFDI Nómina (XML)", section: "Mensual", mandatory: true, validityDays: 30, allowedFormats: ["XML"], visibleToProvider: true, description: "Archivo XML timbrado por el SAT" },
+    { id: "dcM02", name: "CFDI Nómina (PDF)", section: "Mensual", mandatory: true, validityDays: 30, allowedFormats: ["PDF"], visibleToProvider: true, description: "Representación impresa del CFDI de nómina" },
+    { id: "dcM03", name: "Comprobante pago IMSS (SUA)", section: "Mensual", mandatory: true, validityDays: 30, allowedFormats: ["PDF"], visibleToProvider: true },
+    { id: "dcM04", name: "Comprobante pago INFONAVIT", section: "Mensual", mandatory: true, validityDays: 30, allowedFormats: ["PDF"], visibleToProvider: true },
+    { id: "dcM05", name: "Declaración mensual ISR / IVA", section: "Mensual", mandatory: true, validityDays: 30, allowedFormats: ["PDF"], visibleToProvider: true },
   ],
 };
