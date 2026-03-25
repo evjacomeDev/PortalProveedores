@@ -67,7 +67,7 @@ export function AppShell() {
       <header className="wf-header shrink-0">
         <div className="flex items-center gap-6">
           <Link to="/" className="wf-header-logo no-underline">
-            <img src="/LogoProspectiva.png" alt="Prospectiva" style={{ height: "36px", width: "auto" }} />
+            <img src="/LogoProspectiva.png" alt="Prospectiva" style={{ height: "28px", width: "auto", display: "block" }} />
           </Link>
           <span className="wf-header-title hidden sm:inline">Portal Proveedores — {db.demoConfig.empresaNombre}</span>
         </div>

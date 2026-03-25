@@ -36,7 +36,7 @@ export function LoginPage({ audience }: { audience: Audience }) {
   return (
     <div className="wf-login-frame">
       <div className="wf-login-logo">
-        <img src="/LogoProspectiva.png" alt="Prospectiva" style={{ height: "48px", width: "auto" }} />
+        <img src="/LogoProspectiva.png" alt="Prospectiva" style={{ height: "32px", width: "auto", display: "block" }} />
       </div>
       <div className="wf-login-card">
         <h1 className="wf-login-title">Portal de Proveedores</h1>
