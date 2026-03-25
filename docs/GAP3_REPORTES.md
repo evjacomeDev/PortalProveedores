@@ -1,35 +1,174 @@
-<<<<<<< HEAD
-import { exportCSV } from "../../mock/api";
-import { db } from "../../mock/db";
+# GAP 3 — Exportación de Reportes (Excel / Power BI)
+## Portal de Proveedores EMPRESA · Sprint demo
+**Stack:** React 19 · Vite · TypeScript · React Router v7 · Sonner · Tailwind CSS 4
 
-export function ReportsPage() {
-  const compliance = db.suppliers.map((s) => ({
-    proveedor: s.name,
-    periodosAprobados: db.periods.filter((p) => p.supplierId === s.id && p.status === "Aprobado").length,
-  }));
-  const overdue = db.periods.filter((p) => p.status === "Vencido").map((p) => ({ periodo: p.label, contrato: p.contractId, proveedor: p.supplierId }));
+---
 
-  return (
-    <>
-      <h1 className="wf-page-title">Reportes y bitácora</h1>
-      <div className="wf-actions-bar justify-start gap-3">
-        <button type="button" className="wf-btn wf-btn-primary" onClick={() => exportCSV(compliance, "cumplimiento_proveedor.csv")}>
-          Reporte cumplimiento (CSV)
-        </button>
-        <button type="button" className="wf-btn wf-btn-secondary" onClick={() => exportCSV(overdue, "periodos_vencidos.csv")}>
-          Periodos vencidos (CSV)
-        </button>
-      </div>
-      <h2 className="mb-2 mt-6 text-base font-bold">Bitácora / auditoría (demo)</h2>
-=======
+## CONTEXTO
+
+Repo `evjacomeDev/PortalProveedores`. Demo navegable con datos mock.
+Convenciones:
+- Estilos: clases `wf-*` de `src/styles/wireframe.css`
+- Mock: `src/mock/db.ts` + `src/mock/api.ts`
+- `toast.success/error()` de `sonner`
+- **NO instalar dependencias adicionales** — el export se hace con el `exportCSV` existente
+
+> ⚠️ **PREREQUISITO:** Este GAP asume que el GAP 1 y GAP 2 ya están aplicados.
+> Si no, aplica estos mínimos antes de continuar:
+> - `db.evaluationConfig` tiene `phaseLabels: { A: "Potencial", B: "Funcionamiento actual", C: "Capacidad estratégica" }`
+> - `db.documentCatalog` existe con al menos secciones "Empresa" y "Tecnico"
+> - `EvaluationVersion` tiene `nextReviewDate?: string`
+
+---
+
+## ESTADO ACTUAL
+
+### `src/features/reports/ReportsPage.tsx`
+```tsx
+// Solo tiene 2 botones de export y tabla de bitácora:
+<button onClick={() => exportCSV(compliance, "cumplimiento_proveedor.csv")}>
+  Reporte cumplimiento (CSV)
+</button>
+<button onClick={() => exportCSV(overdue, "periodos_vencidos.csv")}>
+  Periodos vencidos (CSV)
+</button>
+// + tabla de db.auditEvents
+```
+
+### `src/features/internal/RankingPage.tsx`
+```tsx
+// Botones sin implementar:
+<button>Exportar (Excel)</button>  // ← no hace nada
+<button>Reporte Power BI</button>  // ← no hace nada
+```
+
+### `src/mock/api.ts`
+```typescript
+export function exportCSV(rows: Record<string, unknown>[], fileName: string) {
+  // Ya funciona — descarga CSV real con headers automáticos
+}
+// NO tiene funciones de export especializadas
+```
+
+---
+
+## CAMBIOS REQUERIDOS
+
+### PASO 1 — `src/mock/api.ts`
+
+Agrega 4 funciones de export especializadas **después** de `exportCSV`:
+
+```typescript
+// ─── Export especializado: Ranking ────────────────────────────────────────────
+export function exportRankingCSV() {
+  const rows = db.suppliers
+    .map((s) => {
+      const evals = db.evaluations
+        .filter((e) => e.supplierId === s.id)
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      const latest = evals[0];
+      const vencidos = db.periods.filter(
+        (p) => p.supplierId === s.id && p.status === "Vencido"
+      ).length;
+      const docsPendientes = db.documents.filter(
+        (d) => d.supplierId === s.id && d.status === "Pendiente"
+      ).length;
+      return {
+        proveedor: s.name,
+        tipo: s.type,
+        estatus: s.status,
+        score: latest?.finalScore?.toFixed(1) ?? "Sin eval",
+        categoria: latest?.category ?? "—",
+        proxima_evaluacion: latest?.nextReviewDate ?? "—",
+        periodos_vencidos: vencidos,
+        docs_pendientes: docsPendientes,
+      };
+    })
+    .sort((a, b) => Number(b.score) - Number(a.score))
+    .map((r, i) => ({ rank: i + 1, ...r }));
+  exportCSV(rows, "ranking_proveedores.csv");
+}
+
+// ─── Export especializado: Evaluación por fase ────────────────────────────────
+export function exportEvaluationDetailCSV() {
+  const cfg = db.evaluationConfig;
+  const rows = db.evaluations.map((ev) => {
+    const sup = db.suppliers.find((s) => s.id === ev.supplierId);
+    const phaseScore = (dim: "A" | "B" | "C") => {
+      const keys = cfg.criteria[dim].map((c) => `${dim}:${c}`);
+      const sum = keys.reduce((acc, k) => acc + (ev.scores[k] ?? 0), 0);
+      return ((sum / (keys.length * 5)) * 100).toFixed(1);
+    };
+    return {
+      proveedor: sup?.name ?? ev.supplierId,
+      fecha_evaluacion: ev.createdAt.slice(0, 10),
+      score_total: ev.finalScore.toFixed(1),
+      [`fase_${cfg.phaseLabels?.A ?? "A"}`]: phaseScore("A"),
+      [`fase_${cfg.phaseLabels?.B ?? "B"}`]: phaseScore("B"),
+      [`fase_${cfg.phaseLabels?.C ?? "C"}`]: phaseScore("C"),
+      categoria: ev.category,
+      proxima_evaluacion: ev.nextReviewDate ?? "—",
+    };
+  });
+  exportCSV(rows, "evaluacion_por_fase_criterio.csv");
+}
+
+// ─── Export especializado: Estatus documental ─────────────────────────────────
+export function exportDocumentStatusCSV() {
+  const rows = db.documents.map((d) => {
+    const sup = db.suppliers.find((s) => s.id === d.supplierId);
+    const daysLeft = d.expiryDate
+      ? Math.ceil((new Date(d.expiryDate).getTime() - Date.now()) / 86400000)
+      : null;
+    return {
+      proveedor: sup?.name ?? d.supplierId,
+      documento: d.documentType,
+      seccion: d.section,
+      estado: d.status,
+      archivo: d.fileName ?? "—",
+      fecha_carga: (d as any).uploadedAt ?? "—",
+      fecha_vencimiento: d.expiryDate ?? "Sin vencimiento",
+      dias_restantes: daysLeft !== null ? daysLeft : "N/A",
+      alerta: daysLeft !== null && daysLeft < 30
+        ? daysLeft < 0 ? "VENCIDO" : "PRÓXIMO A VENCER"
+        : "",
+    };
+  });
+  exportCSV(rows, "estatus_documental_vigencias.csv");
+}
+
+// ─── Export especializado: Historial de evaluaciones ─────────────────────────
+export function exportEvaluationHistoryCSV() {
+  const rows = db.evaluations
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .map((ev) => {
+      const sup = db.suppliers.find((s) => s.id === ev.supplierId);
+      return {
+        proveedor: sup?.name ?? ev.supplierId,
+        tipo_proveedor: sup?.type ?? "—",
+        fecha_evaluacion: ev.createdAt.slice(0, 10),
+        score: ev.finalScore.toFixed(1),
+        categoria: ev.category,
+        proxima_evaluacion: ev.nextReviewDate ?? "—",
+      };
+    });
+  exportCSV(rows, "historial_evaluaciones.csv");
+}
+```
+
+### PASO 2 — `src/features/reports/ReportsPage.tsx`
+
+Reescribe completamente:
+
+```tsx
 import { useState } from "react";
 import { toast } from "sonner";
 import {
   exportCSV,
-  exportDocumentStatusCSV,
-  exportEvaluationDetailCSV,
-  exportEvaluationHistoryCSV,
   exportRankingCSV,
+  exportEvaluationDetailCSV,
+  exportDocumentStatusCSV,
+  exportEvaluationHistoryCSV,
 } from "../../mock/api";
 import { db } from "../../mock/db";
 
@@ -37,6 +176,7 @@ import { db } from "../../mock/db";
 function useKPIs() {
   const activeSuppliers = db.suppliers.filter((s) => s.status === "Activo");
 
+  // % documentación al día: proveedores sin docs Pendiente o Rechazado
   const docsOk = activeSuppliers.filter(
     (s) => !db.documents.some(
       (d) => d.supplierId === s.id && (d.status === "Pendiente" || d.status === "Rechazado")
@@ -46,6 +186,7 @@ function useKPIs() {
     ? Math.round((docsOk / activeSuppliers.length) * 100)
     : 0;
 
+  // Proveedores en riesgo (último score < 70)
   const enRiesgo = activeSuppliers.filter((s) => {
     const ev = db.evaluations
       .filter((e) => e.supplierId === s.id)
@@ -53,6 +194,7 @@ function useKPIs() {
     return ev && ev.finalScore < 70;
   }).length;
 
+  // Documentos próximos a vencer (< 30 días)
   const proximosVencer = db.documents.filter((d) => {
     if (!d.expiryDate) return false;
     const days = Math.ceil((new Date(d.expiryDate).getTime() - Date.now()) / 86400000);
@@ -138,6 +280,7 @@ export function ReportsPage() {
   const kpis = useKPIs();
   const [filterType, setFilterType] = useState("Todos");
 
+  // Filtro bitácora
   const eventTypes = ["Todos", ...new Set(db.auditEvents.map((e) => e.type))];
   const auditRows = db.auditEvents
     .filter((e) => filterType === "Todos" || e.type === filterType)
@@ -237,7 +380,6 @@ export function ReportsPage() {
           ))}
         </div>
       </div>
->>>>>>> cfdacd9 (Cierre de demo commit)
       <div className="wf-table-wrap">
         <div className="wf-table-scroll">
           <table className="wf-table">
@@ -249,17 +391,6 @@ export function ReportsPage() {
               </tr>
             </thead>
             <tbody>
-<<<<<<< HEAD
-              {db.auditEvents.slice(0, 20).map((e) => (
-                <tr key={e.id}>
-                  <td className="whitespace-nowrap text-xs">{new Date(e.createdAt).toLocaleString()}</td>
-                  <td>
-                    <span className="wf-chip wf-chip-preregistered">{e.type}</span>
-                  </td>
-                  <td>{e.message}</td>
-                </tr>
-              ))}
-=======
               {auditRows.map((e) => (
                 <tr key={e.id}>
                   <td className="whitespace-nowrap text-xs">
@@ -275,7 +406,6 @@ export function ReportsPage() {
                 <tr><td colSpan={3} className="text-center py-4 text-sm"
                   style={{ color: "var(--wf-text-muted)" }}>Sin eventos</td></tr>
               )}
->>>>>>> cfdacd9 (Cierre de demo commit)
             </tbody>
           </table>
         </div>
@@ -283,3 +413,35 @@ export function ReportsPage() {
     </>
   );
 }
+```
+
+### PASO 3 — `src/features/internal/RankingPage.tsx`
+
+Conecta los botones de export existentes:
+
+1. Agrega import: `import { exportRankingCSV, exportEvaluationDetailCSV } from "../../mock/api";`
+2. Reemplaza los dos botones sin función:
+```tsx
+<button type="button" className="wf-btn wf-btn-outline text-sm"
+  onClick={exportRankingCSV}>
+  Exportar (CSV / Excel)
+</button>
+<button type="button" className="wf-btn wf-btn-outline text-sm"
+  onClick={() => { exportRankingCSV(); toast.success("CSV listo para importar en Power BI Desktop"); }}>
+  Power BI
+</button>
+```
+3. Agrega import de `toast` de `sonner` si no está.
+
+---
+
+## CRITERIO DE ACEPTACIÓN
+
+1. Login `ag@demo.com` → `/app/reportes`
+   - Se ven 4 KPI cards con números reales calculados desde `db`
+   - Cada uno de los 6 reportes tiene botón "Exportar CSV" funcional que descarga archivo
+   - "Descargar todos" descarga 6 archivos secuencialmente con toast final
+   - Power BI card muestra instrucciones y botón funcional
+   - Bitácora filtra por tipo de evento
+2. `/app/ranking` → botones Exportar CSV y Power BI funcionan
+3. `npx tsc --noEmit` sin errores
